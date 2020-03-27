@@ -11,7 +11,7 @@ const Story = Schema({
 });
 
 // Statics
-Story.statics.createStory = function (args) {
+Story.statics.createStory = function(args) {
   try {
     // TODO: Implement here
   } catch {
@@ -19,17 +19,17 @@ Story.statics.createStory = function (args) {
   }
 };
 
-Story.statics.getStory = function(args) {
+Story.statics.getStory = async function(args) {
   try {
-    return this.findById({ _id: args.args._id });
+    return (await this.find({ _id: args.args._id }))[0];
   } catch {
     return false;
   }
 };
 
-Story.statics.deleteStory = function(args) {
+Story.statics.deleteStory = async function(args) {
   try {
-    this.deleteById({ _id: args.args._id });
+    await this.deleteOne({ _id: args.args._id });
     return true;
   } catch {
     return false;

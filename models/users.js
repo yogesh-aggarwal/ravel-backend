@@ -59,7 +59,7 @@ const User = Schema({
 });
 
 // Statics
-User.statics.createUser = function (args) {
+User.statics.createUser = function(args) {
   try {
     // TODO: Implement here
   } catch {
@@ -67,28 +67,28 @@ User.statics.createUser = function (args) {
   }
 };
 
-User.statics.getUser = function(args) {
+User.statics.getUser = async function(args) {
   try {
-    return this.findById({ _id: args.args._id });
+    return (await this.find({ _id: args.args._id }))[0];
   } catch {
     return false;
   }
 };
 
-User.statics.deleteUser = function(args) {
+User.statics.deleteUser = async function(args) {
   try {
-    this.deleteById({ _id: args.args._id });
+    await this.deleteOne({ _id: args.args._id });
     return true;
   } catch {
     return false;
   }
 };
 
-User.statics.updateUser = function(args) {
+User.statics.updateUser = async function(args) {
   try {
     const _id = args.args._id;
     delete args.args._id;
-    this.findOneAndUpdate({ _id: _id }, args.args);
+    await this.findOneAndUpdate({ _id: _id }, args.args);
     return true;
   } catch {
     return false;

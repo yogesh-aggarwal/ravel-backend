@@ -1,7 +1,5 @@
 const Post = require("./models/posts");
 
-var a = new Post()
-
 function getPost(args) {
   return Post.getPost(args);
 }

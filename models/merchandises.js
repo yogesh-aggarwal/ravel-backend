@@ -24,28 +24,28 @@ Merchandise.statics.createMerchandise = function (args) {
   }
 };
 
-Merchandise.statics.getMerchandise = function(args) {
+Merchandise.statics.getMerchandise = async function(args) {
   try {
-    return this.findById({ _id: args.args._id });
+    return (await this.find({ _id: args.args._id }))[0];
   } catch {
     return false;
   }
 };
 
-Merchandise.statics.deleteMerchandise = function(args) {
+Merchandise.statics.deleteMerchandise = async function(args) {
   try {
-    this.deleteById({ _id: args.args._id });
+    await this.deleteOne({ _id: args.args._id });
     return true;
   } catch {
     return false;
   }
 };
 
-Merchandise.statics.updateMerchandise = function(args) {
+Merchandise.statics.updateMerchandise = async function(args) {
   try {
     const _id = args.args._id;
     delete args.args._id;
-    this.findOneAndUpdate({ _id: _id }, args.args);
+    await this.findByIdAndUpdate({ _id: _id }, args.args, () => {});
     return true;
   } catch {
     return false;

@@ -33,7 +33,6 @@ Post.statics.getPost = async function(args) {
 
 Post.statics.deletePost = async function(args) {
   try {
-    console.log("onj");
     await this.deleteOne({ _id: args.args._id });
     return true;
   } catch {
@@ -45,8 +44,7 @@ Post.statics.updatePost = async function(args) {
   try {
     const _id = args.args._id;
     delete args.args._id;
-    console.log("jojn");
-    this.findByIdAndUpdate({ _id: _id }, args.args, () => {});
+    await this.findByIdAndUpdate({ _id: _id }, args.args, () => {});
     return true;
   } catch {
     return false;
