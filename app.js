@@ -4,9 +4,7 @@ const { importSchema } = require("graphql-import");
 const { makeExecutableSchema } = require("graphql-tools");
 const graphqlHttp = require("express-graphql");
 const mongoose = require("mongoose");
-
-// Importing models
-const Post = require("./models/posts")
+const resolver = require("./resolver")
 
 require("dotenv").config(); // Configuring env variables
 
@@ -18,14 +16,14 @@ const resolvers = {};
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-const a = new Post();
-
 app.use(
   "",
   graphqlHttp({
     schema: schema,
     rootValue: {
-      getPost: Post.getPost
+      getPost: resolver.getPost,
+      deletePost: resolver.deletePost,
+      updatePost: resolver.updatePost
     },
     graphiql: true
   })

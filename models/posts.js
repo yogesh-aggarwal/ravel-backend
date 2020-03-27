@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const Post = Schema({
+const Post = new Schema({
   _id: Schema.Types.ObjectId,
   title: { type: String, required: true },
   description: { type: String, required: true },
@@ -23,28 +23,30 @@ Post.statics.createPost = function(args) {
   }
 };
 
-Post.statics.getPost = function(args) {
+Post.statics.getPost = async function(args) {
   try {
-    return this.findById({ _id: args.args._id });
+    return (await this.find({ _id: args.args._id }))[0];
   } catch {
     return false;
   }
 };
 
-Post.statics.deletePost = function(args) {
+Post.statics.deletePost = async function(args) {
   try {
-    this.deleteById({ _id: args.args._id });
+    console.log("onj");
+    await this.deleteOne({ _id: args.args._id });
     return true;
   } catch {
     return false;
   }
 };
 
-Post.statics.updatePost = function(args) {
+Post.statics.updatePost = async function(args) {
   try {
     const _id = args.args._id;
     delete args.args._id;
-    this.findOneAndUpdate({ _id: _id }, args.args);
+    console.log("jojn");
+    this.findByIdAndUpdate({ _id: _id }, args.args, () => {});
     return true;
   } catch {
     return false;
