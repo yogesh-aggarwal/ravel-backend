@@ -8,17 +8,23 @@ const Merchandise = Schema({
     type: String,
     required: true
   },
-  picture: { type: [String], required: true },
+  pictures: { type: [String], required: true },
   price: {
     type: Number,
     required: true
-  }
+  },
+  dateAdded: { type: Date, required: true, default: Date.now },
+  dateUpdated: { type: Date, required: true, default: Date.now }
 });
 
 // Statics
-Merchandise.statics.createMerchandise = function (args) {
+Merchandise.statics.createMerchandise = function(args) {
   try {
-    // TODO: Implement here
+    args = args.args;
+    args["_id"] = mongoose.Types.ObjectId();
+    const newMerchandise = new this(args);
+    newMerchandise.save();
+    return true;
   } catch {
     return false;
   }

@@ -5,9 +5,16 @@ type Post {
   content: String!
   comments: [String!]!
   tags: [String!]!
-  stats: [Int!]!
+  stats: PostStats!
   datePublished: String!
   dateUpdated: String!
+}
+
+type PostStats {
+  views: Int!
+  likes: Int!
+  appreciations: Int!
+  applauds: Int!
 }
 
 input PostRDInp {

@@ -9,15 +9,24 @@ const Post = new Schema({
   content: { type: String, required: true },
   comments: { type: [String], required: true },
   tags: { type: [String], required: true },
-  stats: { type: [Number], required: true },
-  datePublished: { type: Date, required: true },
-  dateUpdated: { type: Date, required: true }
+  stats: {
+    views: { type: Number, required: true, default: 0 },
+    likes: { type: Number, required: true, default: 0 },
+    appreciations: { type: Number, required: true, default: 0 },
+    applauds: { type: Number, required: true, default: 0 }
+  },
+  datePublished: { type: Date, required: true, default: Date.now },
+  dateUpdated: { type: Date, required: true, default: Date.now }
 });
 
 // Statics
 Post.statics.createPost = function(args) {
   try {
-    // TODO: Implement here
+    args = args.args;
+    args["_id"] = mongoose.Types.ObjectId();
+    const newPost = new this(args);
+    newPost.save();
+    return true;
   } catch {
     return false;
   }

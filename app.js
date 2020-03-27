@@ -21,9 +21,17 @@ app.use(
   graphqlHttp({
     schema: schema,
     rootValue: {
+      // Post
+      createPost: resolver.createPost,
       getPost: resolver.getPost,
       deletePost: resolver.deletePost,
-      updatePost: resolver.updatePost
+      updatePost: resolver.updatePost,
+
+      // Merchandise
+      createMerchandise: resolver.createMerchandise,
+
+      // User
+      createUser: resolver.createUser,
     },
     graphiql: true
   })

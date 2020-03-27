@@ -5,15 +5,23 @@ const Schema = mongoose.Schema;
 const Story = Schema({
   _id: Schema.Types.ObjectId,
   content: { type: String, required: true },
-  stats: { type: [Number], required: true },
-  comments: { type: [String], required: true },
-  datePublished: { type: Date, required: true }
+  stats: {
+    views: { type: Number, required: true, default: 0 },
+    likes: { type: Number, required: true, default: 0 },
+    appreciations: { type: Number, required: true, default: 0 },
+    applauds: { type: Number, required: true, default: 0 }
+  },
+  comments: { type: [String], required: true, default: [] },
+  datePublished: { type: Date, required: true, default: Date.now }
 });
 
 // Statics
 Story.statics.createStory = function(args) {
   try {
-    // TODO: Implement here
+    args = args.args;
+    args["_id"] = mongoose.Types.ObjectId();
+    const newStory = new this(args);
+    newStory.save();
   } catch {
     return false;
   }

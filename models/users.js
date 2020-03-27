@@ -11,57 +11,76 @@ const User = Schema({
       type: String,
       required: true
     },
+    pword: {
+      type: String,
+      required: true
+    },
     name: {
       type: String,
       required: true
     },
     bio: {
       type: String,
-      required: true
+      required: false,
+      default: ""
     },
     isSuspended: {
       type: Boolean,
-      required: true
+      required: true,
+      default: false
     },
     socialLinks: {
       type: [String],
-      required: true
+      required: true,
+      default: []
     },
     memberOf: {
       type: [String],
-      required: true
+      required: true,
+      default: []
     },
     posts: {
       type: [String],
-      required: true
+      required: true,
+      default: []
     },
     stories: {
       type: [String],
-      required: true
+      required: true,
+      default: []
     },
     followers: {
       type: [String],
-      required: true
+      required: true,
+      default: []
     },
     following: {
       type: [String],
-      required: true
+      required: true,
+      default: []
     },
     stats: {
-      reach: { type: Number, required: true },
-      appreciations: { type: Number, required: true }
+      reach: { type: Number, required: true, default: 0 },
+      appreciations: { type: Number, required: true, default: 0 }
     },
     merchandise: {
       type: [String],
-      required: true
-    }
+      required: true,
+      default: []
+    },
+    joinDate: { type: Date, required: true, default: Date.now }
   }
 });
 
 // Statics
 User.statics.createUser = function(args) {
   try {
-    // TODO: Implement here
+    const newUser = new this({
+      _id: mongoose.Types.ObjectId(),
+      data: args.args
+    });
+    newUser.save();
+    return true;
   } catch {
     return false;
   }
