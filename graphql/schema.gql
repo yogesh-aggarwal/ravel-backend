@@ -1,0 +1,34 @@
+# import Post, PostRDInp, PostCreateInp, PostUpdateInp from "./posts.gql"
+# import Story, StoryRDInp, StoryCreateInp, StoryUpdateInp from "./story.gql"
+# import Merchandise, MerchandiseRDInp, MerchandiseCreateInp, MerchandiseUpdateInp from "./merchandises.gql"
+# import User, UserRDInp, UserCreateInp, UserUpdateInp from "./users.gql"
+
+type QueryResolver {
+  getPost(args: PostRDInp): Post!
+  getStory(args: StoryRDInp): Story!
+  getMerchandise(args: MerchandiseRDInp): Merchandise!
+  getUser(args: UserRDInp): User!
+}
+
+type MutationResolver {
+  # Post
+  deletePost(args: PostRDInp): Boolean!
+  createPost(args: PostCreateInp): Boolean!
+  updatePost(args: PostUpdateInp): Boolean!
+  # Story
+  deleteStory(args: StoryRDInp): Boolean!
+  createStory(args: StoryCreateInp): Boolean!
+  # Merchandise
+  deleteMerchandise(args: MerchandiseRDInp): Boolean!
+  createMerchandise(args: MerchandiseCreateInp): Boolean!
+  updateMerchandise(args: MerchandiseUpdateInp): Boolean!
+  # User
+  deleteUser(args: UserRDInp): Boolean!
+  createUser(args: UserCreateInp): Boolean!
+  updateUser(args: UserUpdateInp): Boolean!
+}
+
+schema {
+  query: QueryResolver
+  mutation: MutationResolver
+}

@@ -1,0 +1,45 @@
+type User {
+  _id: String!
+  history: [String!]!
+  saved: [String!]!
+  data: UserData!
+}
+
+type UserData {
+  uname: String!
+  name: String!
+  bio: String!
+  isSuspended: Boolean!
+  socialLinks: [String!]!
+  memberOf: [String!]!
+  posts: [String!]!
+  stories: [String!]!
+  followers: [String!]!
+  following: [String!]!
+  stats: UserStats!
+  merchandise: [String!]!
+}
+
+type UserStats {
+  reach: Int!
+  appreciations: Int!
+}
+
+input UserRDInp {
+  _id: String!
+}
+
+input UserCreateInp {
+  uname: String!
+  name: String!
+  bio: String!
+  socialLinks: [String!]!
+}
+
+input UserUpdateInp {
+  _id: String!
+  title: String
+  description: String
+  content: String
+  tags: [String]
+}

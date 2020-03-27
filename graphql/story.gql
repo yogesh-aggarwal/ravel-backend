@@ -1,0 +1,15 @@
+type Story {
+  _id: String!
+  content: String!
+  stats: [Int!]!
+  datePublished: String!
+  comments: [String!]!
+}
+
+input StoryRDInp {
+  _id: String!
+}
+
+input StoryCreateInp {
+  content: String!
+}

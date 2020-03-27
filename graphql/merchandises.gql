@@ -1,0 +1,23 @@
+type Merchandise {
+  _id: String!
+  name: String!
+  pictures: [String!]!
+  price: Float!
+}
+
+input MerchandiseRDInp {
+  _id: String!
+}
+
+input MerchandiseCreateInp {
+  name: String!
+  pictures: [String!]!
+  price: Float!
+}
+
+input MerchandiseUpdateInp {
+  _id: String!
+  name: String
+  pictures: [String!]
+  price: Float
+}
