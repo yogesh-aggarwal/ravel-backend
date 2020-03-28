@@ -40,9 +40,16 @@ const User = Schema({
       default: []
     },
     posts: {
-      type: [String],
-      required: true,
-      default: []
+      categories: {
+        type: [String],
+        required: true,
+        default: []
+      },
+      posts: {
+        type: [[String]],
+        required: true,
+        default: []
+      }
     },
     stories: {
       type: [String],

@@ -26,6 +26,8 @@ type MutationResolver {
   deleteUser(args: UserRDInp): Boolean!
   createUser(args: UserCreateInp): Boolean!
   updateUser(args: UserUpdateInp): Boolean!
+  # # Other tools
+  # getTrending: 
 }
 
 schema {

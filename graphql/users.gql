@@ -13,7 +13,7 @@ type UserData {
   isSuspended: Boolean!
   socialLinks: [String!]!
   memberOf: [String!]!
-  posts: [String!]!
+  posts: UserPosts!
   stories: [String!]!
   followers: [String!]!
   following: [String!]!
@@ -24,6 +24,11 @@ type UserData {
 type UserStats {
   reach: Int!
   appreciations: Int!
+}
+
+type UserPosts {
+  categories: [String!]!
+  posts: [[String!]!]!
 }
 
 input UserRDInp {
