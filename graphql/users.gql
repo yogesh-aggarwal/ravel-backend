@@ -8,6 +8,9 @@ type User {
 type UserData {
   uname: String!
   pword: String!
+  email: String!
+  gender: String!
+  profileImg: String!
   name: String!
   bio: String!
   isSuspended: Boolean!
@@ -39,13 +42,20 @@ input UserCreateInp {
   uname: String!
   name: String!
   pword: String!
+  email: String!
+  gender: String!
+  profileImg: String
   bio: String
   socialLinks: [String!]
 }
 
 input UserUpdateInp {
   _id: String!
-  title: String
+  name: String
+  pword: String
+  email: String
+  gender: String
+  profileImg: String
   description: String
   socialLinks: [String!]
   content: String

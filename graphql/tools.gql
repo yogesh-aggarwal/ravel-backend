@@ -1,0 +1,9 @@
+input getNewRavelsInp {
+  uid: String!
+  quantity: Int
+}
+
+input getUserRecommendationsInp {
+  uid: String!
+  quantity: Int
+}

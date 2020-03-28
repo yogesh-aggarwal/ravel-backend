@@ -3,9 +3,12 @@ type Post {
   title: String!
   description: String!
   content: String!
+  thumbnail: String!
+  readTime: String!
   comments: [String!]!
   tags: [String!]!
   stats: PostStats!
+  credit: PostCredit!
   datePublished: String!
   dateUpdated: String!
 }
@@ -17,6 +20,16 @@ type PostStats {
   applauds: Int!
 }
 
+type PostCredit {
+  author: String!
+  publication: String
+}
+
+input PostCreditInp {
+  author: String!
+  publication: String
+}
+
 input PostRDInp {
   _id: String!
 }
@@ -25,6 +38,8 @@ input PostCreateInp {
   title: String!
   description: String!
   content: String!
+  thumbnail: String!
+  credit: PostCreditInp!
   tags: [String!]!
 }
 
@@ -33,5 +48,7 @@ input PostUpdateInp {
   title: String
   description: String
   content: String
+  thumbnail: String
+  credit: PostCreditInp
   tags: [String]
 }

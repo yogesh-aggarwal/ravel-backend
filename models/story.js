@@ -16,7 +16,7 @@ const Story = Schema({
 });
 
 // Statics
-Story.statics.createStory = function(args) {
+Story.statics.createStory = async function(args) {
   try {
     args = args.args;
     args["_id"] = mongoose.Types.ObjectId();

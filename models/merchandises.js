@@ -18,7 +18,7 @@ const Merchandise = Schema({
 });
 
 // Statics
-Merchandise.statics.createMerchandise = function(args) {
+Merchandise.statics.createMerchandise = async function(args) {
   try {
     args = args.args;
     args["_id"] = mongoose.Types.ObjectId();

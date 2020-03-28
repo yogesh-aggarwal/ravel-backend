@@ -2,12 +2,16 @@
 # import Story, StoryRDInp, StoryCreateInp, StoryUpdateInp from "./story.gql"
 # import Merchandise, MerchandiseRDInp, MerchandiseCreateInp, MerchandiseUpdateInp from "./merchandises.gql"
 # import User, UserRDInp, UserCreateInp, UserUpdateInp from "./users.gql"
+# import getNewRavelsInp from "./tools.gql"
 
 type QueryResolver {
   getPost(args: PostRDInp): Post!
   getStory(args: StoryRDInp): Story!
   getMerchandise(args: MerchandiseRDInp): Merchandise!
   getUser(args: UserRDInp): User!
+  # Other tools
+  getNewRavels(args: getNewRavelsInp): [Post]!
+  getUserRecommendations(args: getUserRecommendationsInp): [Post]!
 }
 
 type MutationResolver {
@@ -26,8 +30,6 @@ type MutationResolver {
   deleteUser(args: UserRDInp): Boolean!
   createUser(args: UserCreateInp): Boolean!
   updateUser(args: UserUpdateInp): Boolean!
-  # # Other tools
-  # getTrending: 
 }
 
 schema {

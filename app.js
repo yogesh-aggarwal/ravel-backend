@@ -4,7 +4,7 @@ const { importSchema } = require("graphql-import");
 const { makeExecutableSchema } = require("graphql-tools");
 const graphqlHttp = require("express-graphql");
 const mongoose = require("mongoose");
-const resolver = require("./resolver")
+const resolver = require("./resolver");
 
 require("dotenv").config(); // Configuring env variables
 
@@ -32,6 +32,11 @@ app.use(
 
       // User
       createUser: resolver.createUser,
+      getUser: resolver.getUser,
+
+      // Other tools
+      getNewRavels: resolver.getNewRavels,
+      getUserRecommendations: resolver.getUserRecommendations,
     },
     graphiql: true
   })

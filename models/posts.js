@@ -7,7 +7,20 @@ const Post = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   content: { type: String, required: true },
+  thumbnail: { type: String, required: true },
+  readTime: { type: String, required: false },
   comments: { type: [String], required: true },
+  credit: {
+    author: {
+      type: String,
+      required: true
+    },
+    publication: {
+      type: String,
+      required: true,
+      default: "Ravel Official"
+    }
+  },
   tags: { type: [String], required: true },
   stats: {
     views: { type: Number, required: true, default: 0 },
@@ -20,7 +33,7 @@ const Post = new Schema({
 });
 
 // Statics
-Post.statics.createPost = function(args) {
+Post.statics.createPost = async function(args) {
   try {
     args = args.args;
     args["_id"] = mongoose.Types.ObjectId();

@@ -15,6 +15,20 @@ const User = Schema({
       type: String,
       required: true
     },
+    email: {
+      type: String,
+      required: true
+    },
+    gender: {
+      type: String,
+      required: true
+    },
+    profileImg: {
+      type: String,
+      required: true,
+      default:
+        "https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ" // TODO: Change it on the basis of gender
+    },
     name: {
       type: String,
       required: true
@@ -80,7 +94,7 @@ const User = Schema({
 });
 
 // Statics
-User.statics.createUser = function(args) {
+User.statics.createUser = async function(args) {
   try {
     const newUser = new this({
       _id: mongoose.Types.ObjectId(),
