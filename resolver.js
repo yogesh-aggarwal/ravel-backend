@@ -1,6 +1,7 @@
 const Post = require("./models/posts");
 const Merchandise = require("./models/merchandises");
 const User = require("./models/users");
+const Trending = require("./models/trending");
 
 async function createPost(args) {
   return await Post.createPost(args);
@@ -58,6 +59,11 @@ async function getUserRecommendations(args) {
   return result;
 }
 
+async function getTrending() {
+  console.log(Trending);
+  return await Trending.getTrending();
+}
+
 module.exports = {
   // Post
   createPost: createPost,
@@ -74,5 +80,6 @@ module.exports = {
 
   // Other tools
   getNewRavels: getNewRavels,
-  getUserRecommendations: getUserRecommendations
+  getUserRecommendations: getUserRecommendations,
+  getTrending: getTrending
 };

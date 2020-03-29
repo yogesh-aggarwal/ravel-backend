@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 
 const Post = new Schema({
   _id: Schema.Types.ObjectId,
-  title: { type: String, required: true },
-  description: { type: String, required: true },
+  title: { type: String, required: true, trim: true, maxlength: 55 },
+  description: { type: String, required: true, trim: true, maxlength: 300 },
   content: { type: String, required: true },
   thumbnail: { type: String, required: true },
   readTime: { type: String, required: false },

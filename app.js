@@ -37,6 +37,7 @@ app.use(
       // Other tools
       getNewRavels: resolver.getNewRavels,
       getUserRecommendations: resolver.getUserRecommendations,
+      getTrending: resolver.getTrending
     },
     graphiql: true
   })

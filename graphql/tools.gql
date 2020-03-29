@@ -7,3 +7,16 @@ input getUserRecommendationsInp {
   uid: String!
   quantity: Int
 }
+
+type Trending {
+  _id: String!
+  tags: [String!]!
+  featured: TrendingFeatured!
+  featuredCreators: [String!]!
+  date: String
+}
+
+type TrendingFeatured {
+  topics: [String!]!
+  posts: [[String!]!]!
+}

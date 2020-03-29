@@ -2,7 +2,7 @@
 # import Story, StoryRDInp, StoryCreateInp, StoryUpdateInp from "./story.gql"
 # import Merchandise, MerchandiseRDInp, MerchandiseCreateInp, MerchandiseUpdateInp from "./merchandises.gql"
 # import User, UserRDInp, UserCreateInp, UserUpdateInp from "./users.gql"
-# import getNewRavelsInp from "./tools.gql"
+# import getNewRavelsInp, Trending from "./tools.gql"
 
 type QueryResolver {
   getPost(args: PostRDInp): Post!
@@ -12,6 +12,7 @@ type QueryResolver {
   # Other tools
   getNewRavels(args: getNewRavelsInp): [Post]!
   getUserRecommendations(args: getUserRecommendationsInp): [Post]!
+  getTrending: Trending!
 }
 
 type MutationResolver {
