@@ -2,17 +2,21 @@
 # import Story, StoryRDInp, StoryCreateInp, StoryUpdateInp from "./story.gql"
 # import Merchandise, MerchandiseRDInp, MerchandiseCreateInp, MerchandiseUpdateInp from "./merchandises.gql"
 # import User, UserRDInp, UserCreateInp, UserUpdateInp from "./users.gql"
-# import getNewRavelsInp, Trending from "./tools.gql"
+# import Publication, PublicationRDInp, PublicationCreateInp, PublicationUpdateInp from "./publications.gql"
+# import getNewRavelsInp, getFeaturedUserInp, Trending from "./tools.gql"
 
 type QueryResolver {
   getPost(args: PostRDInp): Post!
   getStory(args: StoryRDInp): Story!
   getMerchandise(args: MerchandiseRDInp): Merchandise!
   getUser(args: UserRDInp): User!
+  getPublication(args: getPublicationRDInp): Publication!
   # Other tools
   getNewRavels(args: getNewRavelsInp): [Post]!
   getUserRecommendations(args: getUserRecommendationsInp): [Post]!
   getTrending: Trending!
+  getExplore: Explore!
+  getFeaturedUser(args: getFeaturedUserInp): User!
 }
 
 type MutationResolver {

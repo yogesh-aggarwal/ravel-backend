@@ -8,12 +8,24 @@ input getUserRecommendationsInp {
   quantity: Int
 }
 
+input getFeaturedUserInp {
+  _id: String!
+}
+
 type Trending {
   _id: String!
   tags: [String!]!
   featured: TrendingFeatured!
   featuredCreators: [String!]!
   date: String
+}
+
+type Explore {
+  _id: String!
+  tags: [String!]!
+  publications: [String!]!
+  creators: [String!]!
+  posts: [String!]!
 }
 
 type TrendingFeatured {

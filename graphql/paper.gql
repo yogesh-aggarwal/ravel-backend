@@ -1,0 +1,8 @@
+type Paper {
+    _id: String!
+    title: String!
+    content: [String!]!
+    owner: String!
+    datePublished: String!
+    dateUpdated: String!
+}

@@ -2,6 +2,8 @@ const Post = require("./models/posts");
 const Merchandise = require("./models/merchandises");
 const User = require("./models/users");
 const Trending = require("./models/trending");
+const Explore = require("./models/explore");
+const Publication = require("./models/publications");
 
 async function createPost(args) {
   return await Post.createPost(args);
@@ -33,6 +35,11 @@ async function getUser(args) {
   return await User.getUser(args);
 }
 
+// Publication
+async function getPublication(args) {
+  return await Publication.getPublication(args);
+}
+
 // Other tools
 async function getNewRavels(args) {
   const newPosts = [
@@ -59,9 +66,19 @@ async function getUserRecommendations(args) {
   return result;
 }
 
+async function getFeaturedUser(args) {
+  const user = await getUser(args);
+  // user.data.posts.posts = user.data.posts.posts.slice(0, 3);
+  // console.log(user.data.posts.posts);
+  return user;
+}
+
 async function getTrending() {
-  console.log(Trending);
   return await Trending.getTrending();
+}
+
+async function getExplore() {
+  return await Explore.getExplore();
 }
 
 module.exports = {
@@ -78,8 +95,13 @@ module.exports = {
   createUser: createUser,
   getUser: getUser,
 
+  // Publication
+  getPublication: getPublication,
+
   // Other tools
   getNewRavels: getNewRavels,
   getUserRecommendations: getUserRecommendations,
-  getTrending: getTrending
+  getTrending: getTrending,
+  getExplore: getExplore,
+  getFeaturedUser: getFeaturedUser
 };

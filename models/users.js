@@ -23,6 +23,12 @@ const User = Schema({
       type: String,
       required: true
     },
+    coverImg: {
+      type: String,
+      required: true,
+      default:
+        "https://lh3.googleusercontent.com/proxy/LIMc5xaVHsGBtyZ-VzDHUyPq4sKWkjxg_DTGh42uUH6ImdfwGO_RaRqT6PWUauIcBP1kiwqw0Uidpqfu3cY8daJ1td_MMLV49-gTtHED8fO_sfM32TcPT-1HRPfvViXtjyk"
+    },
     profileImg: {
       type: String,
       required: true,
@@ -61,6 +67,11 @@ const User = Schema({
       },
       posts: {
         type: [[String]],
+        required: true,
+        default: []
+      },
+      featuredPosts: {
+        type: [String],
         required: true,
         default: []
       }

@@ -1,0 +1,39 @@
+type Publication {
+  _id: String!
+  name: String!
+  cover: String!
+  profileImg: String!
+  featuredImg: String!
+  posts: [String!]!
+  collections: [[String!]!]!
+  papers: [String!]!
+  followers: [String!]!
+  owners: [String!]!
+  members: [String!]!
+  dateCreated: String!
+  dateUpdated: String!
+}
+
+input getPublicationRDInp {
+  _id: String!
+}
+
+input createPublication {
+  name: String!
+  cover: String!
+  profileImg: String!
+  owners: [String!]!
+  members: [String!]!
+}
+
+input updatePublication {
+  name: String
+  cover: String
+  profileImg: String
+  featuredImg: String
+  posts: [String!]
+  collections: [[String!]!]
+  papers: [String!]
+  owners: [String!]
+  members: [String!]
+}

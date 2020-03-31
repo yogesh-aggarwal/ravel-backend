@@ -34,10 +34,15 @@ app.use(
       createUser: resolver.createUser,
       getUser: resolver.getUser,
 
+      // Publication
+      getPublication: resolver.getPublication,
+
       // Other tools
       getNewRavels: resolver.getNewRavels,
       getUserRecommendations: resolver.getUserRecommendations,
-      getTrending: resolver.getTrending
+      getTrending: resolver.getTrending,
+      getExplore: resolver.getExplore,
+      getFeaturedUser: resolver.getFeaturedUser
     },
     graphiql: true
   })

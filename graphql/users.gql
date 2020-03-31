@@ -10,6 +10,7 @@ type UserData {
   pword: String!
   email: String!
   gender: String!
+  coverImg: String!
   profileImg: String!
   name: String!
   bio: String!
@@ -32,6 +33,7 @@ type UserStats {
 type UserPosts {
   categories: [String!]!
   posts: [[String!]!]!
+  featuredPosts: [String!]!
 }
 
 input UserRDInp {
@@ -44,6 +46,7 @@ input UserCreateInp {
   pword: String!
   email: String!
   gender: String!
+  coverImg: String
   profileImg: String
   bio: String
   socialLinks: [String!]
@@ -56,6 +59,7 @@ input UserUpdateInp {
   email: String
   gender: String
   profileImg: String
+  coverImg: String
   description: String
   socialLinks: [String!]
   content: String
