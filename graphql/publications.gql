@@ -4,12 +4,12 @@ type Publication {
   cover: String!
   profileImg: String!
   featuredImg: String!
-  posts: [String!]!
-  collections: [[String!]!]!
-  papers: [String!]!
-  followers: [String!]!
-  owners: [String!]!
-  members: [String!]!
+  posts: [Post!]!
+  collections: [[String!]!]!  # TODO: Create a new model of collection
+  papers: [Paper!]!
+  followers: [User!]!
+  owners: [User!]!
+  members: [User!]!
   dateCreated: String!
   dateUpdated: String!
 }

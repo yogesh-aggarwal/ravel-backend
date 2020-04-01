@@ -16,8 +16,8 @@ type Trending {
   _id: String!
   tags: [String!]!
   featured: TrendingFeatured!
-  featuredCreators: [String!]!
-  date: String
+  featuredCreators: [User!]!
+  date: String!
 }
 
 type Explore {
@@ -25,10 +25,10 @@ type Explore {
   tags: [String!]!
   publications: [String!]!
   creators: [String!]!
-  posts: [String!]!
+  posts: [Post]!
 }
 
 type TrendingFeatured {
   topics: [String!]!
-  posts: [[String!]!]!
+  posts: [Post!]!
 }

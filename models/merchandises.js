@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
+//& Schema
 const Merchandise = Schema({
   _id: Schema.Types.ObjectId,
   name: {
@@ -17,45 +17,54 @@ const Merchandise = Schema({
   dateUpdated: { type: Date, required: true, default: Date.now }
 });
 
-// Statics
-Merchandise.statics.createMerchandise = async function(args) {
+//& Model
+const MerchandiseModel = mongoose.model("Merchandise", Merchandise, "merchandises");
+
+//& Methods
+async function createMerchandise(_parent, args) {
   try {
     args = args.args;
     args["_id"] = mongoose.Types.ObjectId();
-    const newMerchandise = new this(args);
+    const newMerchandise = new MerchandiseModel(args);
     newMerchandise.save();
     return true;
   } catch {
     return false;
   }
-};
+}
 
-Merchandise.statics.getMerchandise = async function(args) {
+async function getMerchandise(_parent, args) {
   try {
-    return (await this.find({ _id: args.args._id }))[0];
+    return (await MerchandiseModel.find({ _id: args.args._id }))[0];
   } catch {
     return false;
   }
-};
+}
 
-Merchandise.statics.deleteMerchandise = async function(args) {
+async function deleteMerchandise(_parent, args) {
   try {
-    await this.deleteOne({ _id: args.args._id });
+    await MerchandiseModel.deleteOne({ _id: args.args._id });
     return true;
   } catch {
     return false;
   }
-};
+}
 
-Merchandise.statics.updateMerchandise = async function(args) {
+async function updateMerchandise(_parent, args) {
   try {
     const _id = args.args._id;
     delete args.args._id;
-    await this.findByIdAndUpdate({ _id: _id }, args.args, () => {});
+    await MerchandiseModel.findByIdAndUpdate({ _id: _id }, args.args, () => {});
     return true;
   } catch {
     return false;
   }
-};
+}
 
-module.exports = mongoose.model("Merchandise", Merchandise, "merchandises");
+module.exports = {
+  model: MerchandiseModel,
+  createMerchandise: createMerchandise,
+  getMerchandise: getMerchandise,
+  deleteMerchandise: deleteMerchandise,
+  updateMerchandise: updateMerchandise
+};

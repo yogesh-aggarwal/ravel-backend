@@ -3,6 +3,7 @@
 # import Merchandise, MerchandiseRDInp, MerchandiseCreateInp, MerchandiseUpdateInp from "./merchandises.gql"
 # import User, UserRDInp, UserCreateInp, UserUpdateInp from "./users.gql"
 # import Publication, PublicationRDInp, PublicationCreateInp, PublicationUpdateInp from "./publications.gql"
+# import Paper from "./paper.gql"
 # import getNewRavelsInp, getFeaturedUserInp, Trending from "./tools.gql"
 
 type QueryResolver {

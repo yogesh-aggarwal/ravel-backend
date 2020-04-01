@@ -16,13 +16,13 @@ type UserData {
   bio: String!
   isSuspended: Boolean!
   socialLinks: [String!]!
-  memberOf: [String!]!
+  memberOf: [Publication!]!
   posts: UserPosts!
-  stories: [String!]!
-  followers: [String!]!
-  following: [String!]!
+  stories: [Story]!
+  followers: [User]!
+  following: [User]!
   stats: UserStats!
-  merchandise: [String!]!
+  merchandise: [Merchandise]!
 }
 
 type UserStats {
@@ -32,8 +32,8 @@ type UserStats {
 
 type UserPosts {
   categories: [String!]!
-  posts: [[String!]!]!
-  featuredPosts: [String!]!
+  posts: [Post!]!
+  featuredPosts: Post!
 }
 
 input UserRDInp {

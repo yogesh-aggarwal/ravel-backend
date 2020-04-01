@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
+//& Schema
 const Post = new Schema({
   _id: Schema.Types.ObjectId,
   title: { type: String, required: true, trim: true, maxlength: 55 },
@@ -32,12 +32,15 @@ const Post = new Schema({
   dateUpdated: { type: Date, required: true, default: Date.now }
 });
 
-// Statics
-Post.statics.createPost = async function(args) {
+//& Model
+const PostModel = mongoose.model("Post", Post, "posts");
+
+//& Methods
+async function createPost(_parent, args) {
   try {
     args = args.args;
     args["_id"] = mongoose.Types.ObjectId();
-    const newPost = new this(args);
+    const newPost = new PostModel(args);
     newPost.save();
     return true;
   } catch {
@@ -45,32 +48,38 @@ Post.statics.createPost = async function(args) {
   }
 };
 
-Post.statics.getPost = async function(args) {
+async function getPost(_parent, args) {
   try {
-    return (await this.find({ _id: args.args._id }))[0];
+    return (await PostModel.find({ _id: args.args._id }))[0];
   } catch {
     return false;
   }
 };
 
-Post.statics.deletePost = async function(args) {
+async function deletePost(_parent, args) {
   try {
-    await this.deleteOne({ _id: args.args._id });
+    await PostModel.deleteOne({ _id: args.args._id });
     return true;
   } catch {
     return false;
   }
 };
 
-Post.statics.updatePost = async function(args) {
+async function updatePost(_parent, args) {
   try {
     const _id = args.args._id;
     delete args.args._id;
-    await this.findByIdAndUpdate({ _id: _id }, args.args, () => {});
+    await PostModel.findByIdAndUpdate({ _id: _id }, args.args, () => {});
     return true;
   } catch {
     return false;
   }
 };
 
-module.exports = mongoose.model("Post", Post, "posts");
+module.exports = {
+  model: PostModel,
+  createPost: createPost,
+  getPost: getPost,
+  deletePost: deletePost,
+  updatePost: updatePost
+};

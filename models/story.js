@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
+//& Schema
 const Story = Schema({
   _id: Schema.Types.ObjectId,
   content: { type: String, required: true },
@@ -15,33 +15,41 @@ const Story = Schema({
   datePublished: { type: Date, required: true, default: Date.now }
 });
 
-// Statics
-Story.statics.createStory = async function(args) {
+//& Model
+const StoryModel = mongoose.model("Story", Story, "Storys");
+
+//& Methods
+async function createStory(_parent, args) {
   try {
     args = args.args;
     args["_id"] = mongoose.Types.ObjectId();
-    const newStory = new this(args);
+    const newStory = new StoryModel(args);
     newStory.save();
   } catch {
     return false;
   }
-};
+}
 
-Story.statics.getStory = async function(args) {
+async function getStory(_parent, args) {
   try {
-    return (await this.find({ _id: args.args._id }))[0];
+    return (await StoryModel.find({ _id: args.args._id }))[0];
   } catch {
     return false;
   }
-};
+}
 
-Story.statics.deleteStory = async function(args) {
+async function deleteStory(_parent, args) {
   try {
-    await this.deleteOne({ _id: args.args._id });
+    await StoryModel.deleteOne({ _id: args.args._id });
     return true;
   } catch {
     return false;
   }
-};
+}
 
-module.exports = mongoose.model("Story", Story, "Storys");
+module.exports = {
+  model: StoryModel,
+  createStory: createStory,
+  getStory: getStory,
+  deleteStory: deleteStory
+};
