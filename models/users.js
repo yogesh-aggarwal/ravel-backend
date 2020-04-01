@@ -1,6 +1,17 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const Publication = require("./publications");
+const Post = require("./posts");
+const Story = require("./story");
+const Merchandise = require("./merchandises");
+
+//& Models
+PostModel = Post.model;
+PublicationModel = Publication.model;
+StoryModel = Story.model;
+MerchandiseModel = Merchandise.model;
+
 //& Schema
 const User = Schema({
   _id: Schema.Types.ObjectId,
@@ -60,13 +71,20 @@ const User = Schema({
       default: []
     },
     posts: {
-      categories: {
-        type: [String],
-        required: true,
-        default: []
-      },
+      categories: [
+        {
+          name: {
+            type: String,
+            required: true
+          },
+          posts: {
+            type: [String],
+            required: true
+          }
+        }
+      ],
       posts: {
-        type: [[String]],
+        type: [String],
         required: true,
         default: []
       },
@@ -123,8 +141,88 @@ async function createUser(_parent, args) {
 
 async function getUser(_parent, args) {
   try {
-    return (await UserModel.find({ _id: args.args._id }))[0];
-  } catch {
+    const user = (await UserModel.find({ _id: args.args._id }))[0];
+    const userPosts = user.data.posts;
+
+    //& Parse: "posts.posts"
+    posts = [];
+    for (let post of userPosts.posts) {
+      posts.push(await PostModel.findById(post));
+    }
+
+    //& Parse: "posts.featuredPosts"
+    featuredPosts = [];
+    for (let featuredPost of userPosts.featuredPosts) {
+      featuredPosts.push(await PostModel.findById(featuredPost));
+    }
+
+    //& Parse: "posts.categories"
+    let categories = [];
+    for (let category of userPosts.categories) {
+      let categoryPosts = [];
+      for (post of category.posts) {
+        categoryPosts.push(await PostModel.findById(post));
+      }
+      categories.push({ name: category.name, posts: categoryPosts });
+    }
+
+    //& Parse: "memberOf"
+    let memberOf = [];
+    for (let member of user.data.memberOf) {
+      memberOf.push(await PublicationModel.findById(member));
+    }
+
+    //& Parse: "story"
+    let stories = [];
+    for (let story of user.data.stories) {
+      stories.push(await StoryModel.findById(story));
+    }
+
+    //& Parse: "followers"
+    let followers = [];
+    for (let follower of user.data.followers) {
+      followers.push(await UserModel.findById(follower));
+    }
+
+    //& Parse: "followings"
+    let followings = [];
+    for (let following of user.data.following) {
+      followings.push(await UserModel.findById(following));
+    }
+
+    //& Parse: "merchandise"
+    let merchandises = [];
+    for (let merchandise of user.data.merchandise) {
+      merchandises.push(await UserModel.findById(merchandise));
+    }
+
+    const data = {
+      ...user.data,
+      data: {
+        memberOf: memberOf
+      },
+      posts: {
+        posts: posts,
+        categories: categories,
+        featuredPosts: featuredPosts
+      },
+      memberOf: memberOf,
+      stories: stories,
+      followers: followers,
+      following: followings,
+      merchandises: merchandises
+    };
+
+    let newUser = {
+      _id: user._id,
+      data: data,
+      history: user.history,
+      saved: user.saved
+    };
+
+    return newUser;
+  } catch (err) {
+    throw err;
     return false;
   }
 }
@@ -142,12 +240,23 @@ async function updateUser(_parent, args) {
   try {
     const _id = args.args._id;
     delete args.args._id;
-    await UserModel.findOneAndUpdate({ _id: _id }, args.args);
+    await UserPostModel.findOneAndUpdate({ _id: _id }, args.args);
     return true;
   } catch {
     return false;
   }
 }
+
+// createUser(null, {
+//   args: {
+//     uname: "john-doe",
+//     name: "John Doe",
+//     pword: "theplainpass",
+//     email: "johndoe@email.com",
+//     gender: "M",
+//     bio: "I am John Doe"
+//   }
+// });
 
 module.exports = {
   model: UserModel,

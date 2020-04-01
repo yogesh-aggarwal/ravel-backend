@@ -31,9 +31,14 @@ type UserStats {
 }
 
 type UserPosts {
-  categories: [String!]!
+  categories: [UserPostsCategories!]!
   posts: [Post!]!
-  featuredPosts: Post!
+  featuredPosts: [Post!]!
+}
+
+type UserPostsCategories {
+  name: String!
+  posts: [Post!]!
 }
 
 input UserRDInp {
