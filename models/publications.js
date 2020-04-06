@@ -23,13 +23,24 @@ const Publication = new Schema({
     type: String,
     required: true
   },
-  Publications: {
+  publications: {
     type: [String],
     required: true,
     default: []
   },
   collections: {
-    type: [String],
+    type: [
+      {
+        name: {
+          type: String,
+          required: true
+        },
+        posts: {
+          type: [String],
+          required: true
+        }
+      }
+    ],
     required: true,
     default: []
   },
@@ -63,7 +74,11 @@ const Publication = new Schema({
 });
 
 //& Model
-const PublicationModel = mongoose.model("Publication", Publication, "publications");
+const PublicationModel = mongoose.model(
+  "Publication",
+  Publication,
+  "publications"
+);
 
 //& Methods
 async function createPublication(_parent, args) {
@@ -75,7 +90,7 @@ async function createPublication(_parent, args) {
   } catch {
     return false;
   }
-};
+}
 
 async function getPublication(_parent, args) {
   try {
@@ -83,7 +98,7 @@ async function getPublication(_parent, args) {
   } catch {
     return false;
   }
-};
+}
 
 async function deletePublication(_parent, args) {
   try {
@@ -92,7 +107,7 @@ async function deletePublication(_parent, args) {
   } catch {
     return false;
   }
-};
+}
 
 async function updatePublication(_parent, args) {
   try {
@@ -103,7 +118,7 @@ async function updatePublication(_parent, args) {
   } catch {
     return false;
   }
-};
+}
 
 module.exports = {
   model: PublicationModel,

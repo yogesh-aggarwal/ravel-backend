@@ -15,20 +15,14 @@ input getFeaturedUserInp {
 type Trending {
   _id: String!
   tags: [String!]!
-  featured: TrendingFeatured!
-  featuredCreators: [User!]!
-  date: String!
+  categories: [UserPostsCategories!]!
+  creators: [User!]!
 }
 
 type Explore {
   _id: String!
   tags: [String!]!
-  publications: [String!]!
-  creators: [String!]!
+  publications: [Publication!]!
+  creators: [User!]!
   posts: [Post]!
-}
-
-type TrendingFeatured {
-  topics: [String!]!
-  posts: [Post!]!
 }

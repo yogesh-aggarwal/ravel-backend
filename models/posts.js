@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+//& Models
+// PublicationModel = models.Publication;
+// console.log(models);
+// UserModel = User.model;
+
 //& Schema
 const Post = new Schema({
   _id: Schema.Types.ObjectId,
@@ -18,7 +23,7 @@ const Post = new Schema({
     publication: {
       type: String,
       required: true,
-      default: "Ravel Official"
+      default: "5e834ed984f4ca32d083de90" //? Ravel official
     }
   },
   tags: { type: [String], required: true },
@@ -46,15 +51,7 @@ async function createPost(_parent, args) {
   } catch {
     return false;
   }
-};
-
-async function getPost(_parent, args) {
-  try {
-    return (await PostModel.find({ _id: args.args._id }))[0];
-  } catch {
-    return false;
-  }
-};
+}
 
 async function deletePost(_parent, args) {
   try {
@@ -63,7 +60,7 @@ async function deletePost(_parent, args) {
   } catch {
     return false;
   }
-};
+}
 
 async function updatePost(_parent, args) {
   try {
@@ -74,12 +71,11 @@ async function updatePost(_parent, args) {
   } catch {
     return false;
   }
-};
+}
 
 module.exports = {
   model: PostModel,
   createPost: createPost,
-  getPost: getPost,
   deletePost: deletePost,
   updatePost: updatePost
 };

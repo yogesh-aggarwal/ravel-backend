@@ -42,14 +42,6 @@ async function createExplore(_parent, args) {
   }
 }
 
-async function getExplore() {
-  try {
-    return (await ExploreModel.find({}))[0];
-  } catch {
-    return false;
-  }
-}
-
 async function deleteExplore(_parent, args) {
   try {
     await ExploreModel.deleteOne({ _id: args.args._id });
@@ -76,7 +68,6 @@ mongoose.connect(process.env.DBURL);
 module.exports = {
   model: ExploreModel,
   createExplore: createExplore,
-  getExplore: getExplore,
   deleteExplore: deleteExplore,
   updateExplore: updateExplore
 };

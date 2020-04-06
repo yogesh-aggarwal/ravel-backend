@@ -21,8 +21,8 @@ type PostStats {
 }
 
 type PostCredit {
-  author: String!
-  publication: String
+  author: User!
+  publication: Publication!
 }
 
 input PostCreditInp {
