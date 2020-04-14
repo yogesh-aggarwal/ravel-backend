@@ -96,7 +96,7 @@ const User = Schema({
     },
     collections: {
       type: {
-        name: {
+        title: {
           type: String,
           required: true,
         },
@@ -104,6 +104,10 @@ const User = Schema({
           type: String,
           required: true,
         },
+        thumbnail: { type: String, required: true },
+        tags: { type: [String], required: true, default: [] },
+        dateCreated: { type: Date, required: true, default: Date.now },
+        dateUpdated: { type: Date, required: true, default: Date.now },
         posts: {
           type: [String],
           required: true,

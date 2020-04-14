@@ -16,7 +16,7 @@ const Story = Schema({
 });
 
 //& Model
-const StoryModel = mongoose.model("Story", Story, "Storys");
+const StoryModel = mongoose.model("Story", Story, "stories");
 
 //& Methods
 async function createStory(_parent, args) {

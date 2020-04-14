@@ -119,8 +119,12 @@ async function getUser(_parent, args) {
       collectionPosts.push(await Post.model.findById(post));
     }
     collections.push({
-      name: collection.name,
+      title: collection.title,
       description: collection.description,
+      thumbnail: collection.thumbnail,
+      tags: collection.tags,
+      dateCreated: collection.dateCreated,
+      dateUpdated: collection.dateUpdated,
       posts: collectionPosts,
     });
   }
