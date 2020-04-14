@@ -111,6 +111,21 @@ async function getUser(_parent, args) {
   }
   user.data.posts.categories = categories;
 
+  //& Parse: "collections"
+  let collections = [];
+  for (let collection of user.data.collections) {
+    let collectionPosts = [];
+    for (post of collection.posts) {
+      collectionPosts.push(await Post.model.findById(post));
+    }
+    collections.push({
+      name: collection.name,
+      description: collection.description,
+      posts: collectionPosts,
+    });
+  }
+  user.data.collections = collections;
+
   //& Parse: "memberOf"
   let memberOf = [];
   for (let member of user.data.memberOf) {

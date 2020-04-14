@@ -13,7 +13,7 @@ async function getNewRavels(args) {
   const newPosts = [
     "5e7f3017e20f723590c45638",
     "5e7f3018e20f723590c45639",
-    "5e7f3018e20f723590c4563a"
+    "5e7f3018e20f723590c4563a",
   ]; // TODO: Get them from database of args.args.quantity
 
   let result = [];
@@ -43,10 +43,7 @@ async function getFeaturedUser(args) {
 
 async function getTrending() {
   let trending = (
-    await Trending.model
-      .find()
-      .limit(1)
-      .sort({ $natural: -1 })
+    await Trending.model.find().limit(1).sort({ $natural: -1 })
   )[0].toObject();
 
   //& Parse: "trending.categories"
@@ -60,11 +57,11 @@ async function getTrending() {
     }
     categories.push({
       name: category.name,
-      posts: categoryPosts
+      posts: categoryPosts,
     });
   }
   trending.categories = categories;
-  
+
   //& Parse "trending.creators"
   let creators = [];
   for (let creator of trending.creators) {
@@ -78,10 +75,7 @@ async function getTrending() {
 
 async function getExplore() {
   let explore = (
-    await Explore.model
-      .find()
-      .limit(1)
-      .sort({ $natural: -1 })
+    await Explore.model.find().limit(1).sort({ $natural: -1 })
   )[0].toObject();
 
   //& Parse: "Explore.publications"
@@ -122,7 +116,7 @@ module.exports = {
     getUserRecommendations: getUserRecommendations,
     getTrending: getTrending,
     getExplore: getExplore,
-    getFeaturedUser: getFeaturedUser
+    getFeaturedUser: getFeaturedUser,
   },
   MutationResolver: {
     // Post
@@ -139,6 +133,6 @@ module.exports = {
     // User
     deleteUser: User.deleteUser,
     createUser: User.createUser,
-    updateUser: User.updateUser
-  }
+    updateUser: User.updateUser,
+  },
 };

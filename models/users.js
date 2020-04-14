@@ -94,6 +94,24 @@ const User = Schema({
         default: [],
       },
     },
+    collections: {
+      type: {
+        name: {
+          type: String,
+          required: true,
+        },
+        description: {
+          type: String,
+          required: true,
+        },
+        posts: {
+          type: [String],
+          required: true,
+        },
+      },
+      required: true,
+      default: [],
+    },
     stories: {
       type: [String],
       required: true,

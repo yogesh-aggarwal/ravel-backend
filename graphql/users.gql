@@ -16,6 +16,7 @@ type UserData {
   bio: String!
   isSuspended: Boolean!
   socialLinks: [String!]!
+  collections: [UserCollection!]!
   memberOf: [Publication!]!
   posts: UserPosts!
   stories: [Story]!
@@ -34,6 +35,12 @@ type UserPosts {
   categories: [UserPostsCategories!]!
   posts: [Post!]!
   featuredPosts: [Post!]!
+}
+
+type UserCollection {
+  name: String!
+  description: String!
+  posts: [Post!]!
 }
 
 type UserPostsCategories {
