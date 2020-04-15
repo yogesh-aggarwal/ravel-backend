@@ -8,9 +8,16 @@ const resolvers = require("./resolver");
 
 require("dotenv").config(); // Configuring env variables
 
-mongoose.connect(process.env.DBURL).then(() => {
-  const server = new ApolloServer({ typeDefs, resolvers });
-  server.listen({ port: 80 }).then((info: { port: number }) => {
-    console.log(`🚀 Server is up and running at http://localhost:${info.port}`);
+mongoose
+  .connect(process.env.DBURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    const server = new ApolloServer({ typeDefs, resolvers });
+    server.listen({ port: 80 }).then((info: { port: number }) => {
+      console.log(
+        `🚀 Server is up and running at http://localhost:${info.port}`
+      );
+    });
   });
-});

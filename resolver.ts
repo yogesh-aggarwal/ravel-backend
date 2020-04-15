@@ -15,6 +15,8 @@ const {
   getStory,
 } = require("./models");
 
+console.log(Post);
+
 //& Get tools
 async function getNewRavels(args: any) {
   const newPosts = [
@@ -25,7 +27,7 @@ async function getNewRavels(args: any) {
 
   let result = [];
   for (let newPost of newPosts) {
-    result.push(await Post.getPost(null, { args: { _id: newPost } }));
+    result.push(await getPost(null, { args: { _id: newPost } }));
   }
   return result;
 }
@@ -36,13 +38,13 @@ async function getUserRecommendations(args: any) {
 
   let result = [];
   for (let newPost of newPosts) {
-    result.push(await Post.getPost(null, { args: { _id: newPost } }));
+    result.push(await getPost(null, { args: { _id: newPost } }));
   }
   return result;
 }
 
 async function getFeaturedUser(args: any) {
-  const user = await User.getUser(null, args);
+  const user = await getUser(null, args);
   // user.data.posts.posts = user.data.posts.posts.slice(0, 3);
   // console.log(user.data.posts.posts);
   return user;
@@ -58,7 +60,7 @@ async function getTrending() {
   for (let category of trending.categories) {
     let categoryPosts = [];
     for (let post of category.posts) {
-      categoryPosts.push(await Post.getPost(null, { args: { _id: post } }));
+      categoryPosts.push(await getPost(null, { args: { _id: post } }));
     }
     categories.push({
       name: category.name,
@@ -70,7 +72,7 @@ async function getTrending() {
   //& Parse "trending.creators"
   let creators = [];
   for (let creator of trending.creators) {
-    creators.push(await User.getUser(null, { args: { _id: creator } }));
+    creators.push(await getUser(null, { args: { _id: creator } }));
   }
   trending.creators = creators;
 
@@ -94,14 +96,14 @@ async function getExplore() {
   //& Parse: "Explore.creators"
   let creators = [];
   for (let creator of explore.creators) {
-    creators.push(await User.getUser(null, { args: { _id: creator } }));
+    creators.push(await getUser(null, { args: { _id: creator } }));
   }
   explore.creators = creators;
 
   //& Parse: "Explore.posts"
   let posts = [];
   for (let post of explore.posts) {
-    posts.push(await Post.getPost(null, { args: { _id: post } }));
+    posts.push(await getPost(null, { args: { _id: post } }));
   }
   explore.posts = posts;
 
