@@ -20,7 +20,7 @@ const Story = new Schema({
 const StoryModel = mongoose.model("Story", Story, "stories");
 
 //& Methods
-async function createStory(_parent, args) {
+async function createStory(_parent: any, args: any) {
   try {
     args = args.args;
     args["_id"] = mongoose.Types.ObjectId();
@@ -31,7 +31,7 @@ async function createStory(_parent, args) {
   }
 }
 
-async function deleteStory(_parent, args) {
+async function deleteStory(_parent: any, args: any) {
   try {
     await StoryModel.deleteOne({ _id: args.args._id });
     return true;
@@ -40,7 +40,7 @@ async function deleteStory(_parent, args) {
   }
 }
 
-async function updateStory(_parent, args) {
+async function updateStory(_parent: any, args: any) {
   try {
     await StoryModel.updateOne({ _id: args.args._id }, args.args, () => {});
     return true;

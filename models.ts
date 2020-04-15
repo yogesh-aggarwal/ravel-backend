@@ -1,10 +1,10 @@
-export const Post = require("./models/posts")
+export const Post = require("./models/posts");
 export const Merchandise = require("./models/merchandises");
-export const User = require("./models/users")
-export const Trending = require("./models/trending")
-export const Story = require("./models/story")
-export const Explore = require("./models/explore")
-export const Publication = require("./models/publications")
+export const User = require("./models/users");
+export const Trending = require("./models/trending");
+export const Story = require("./models/story");
+export const Explore = require("./models/explore");
+export const Publication = require("./models/publications");
 
 /*
 Explore
@@ -16,11 +16,11 @@ Trending
 // Users
 */
 
-export async function getMerchandise(_parent, args) {
+export async function getMerchandise(_parent: any, args: any) {
   return (await Merchandise.model.findById(args.args._id)).toObject();
 }
 
-export async function getPost(_parent, args) {
+export async function getPost(_parent: any, args: any) {
   let post = (await Post.model.findById(args.args._id)).toObject();
   post.credit.publication = await Publication.model.findById(
     post.credit.publication
@@ -32,7 +32,7 @@ export async function getPost(_parent, args) {
   return post;
 }
 
-export async function getPublication(_parent, args) {
+export async function getPublication(_parent: any, args: any) {
   const publication = (
     await Publication.model.findById(args.args._id)
   ).toObject();
@@ -82,7 +82,7 @@ export async function getPublication(_parent, args) {
   return publication;
 }
 
-export async function getUser(_parent, args) {
+export async function getUser(_parent: any, args: any) {
   const user = (await User.model.findById({ _id: args.args._id })).toObject();
   const userPosts = user.data.posts;
 
@@ -168,4 +168,4 @@ export async function getUser(_parent, args) {
   return user;
 }
 
-export async function getStory(_parent, args) {}
+export async function getStory(_parent: any, args: any) {}

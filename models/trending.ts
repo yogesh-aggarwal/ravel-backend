@@ -33,7 +33,7 @@ const Trending = new Schema({
 const TrendingModel = mongoose.model("Trending", Trending, "trending");
 
 //& Methods
-async function createTrending(_parent, args) {
+async function createTrending(_parent: any, args: any) {
   try {
     args = args.args;
     args["_id"] = mongoose.Types.ObjectId();
@@ -45,7 +45,7 @@ async function createTrending(_parent, args) {
   }
 }
 
-async function deleteTrending(_parent, args) {
+async function deleteTrending(_parent: any, args: any) {
   try {
     await TrendingModel.deleteOne({ _id: args.args._id });
     return true;
@@ -54,7 +54,7 @@ async function deleteTrending(_parent, args) {
   }
 }
 
-async function updateTrending(_parent, args) {
+async function updateTrending(_parent: any, args: any) {
   try {
     const _id = args.args._id;
     delete args.args._id;

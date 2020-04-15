@@ -31,7 +31,7 @@ const Explore = new Schema({
 const ExploreModel = mongoose.model("Explore", Explore, "explore");
 
 //& Methods
-async function createExplore(_parent, args) {
+async function createExplore(_parent: any, args: any) {
   try {
     args = args.args;
     args["_id"] = mongoose.Types.ObjectId();
@@ -43,7 +43,7 @@ async function createExplore(_parent, args) {
   }
 }
 
-async function deleteExplore(_parent, args) {
+async function deleteExplore(_parent: any, args: any) {
   try {
     await ExploreModel.deleteOne({ _id: args.args._id });
     return true;
@@ -52,7 +52,7 @@ async function deleteExplore(_parent, args) {
   }
 }
 
-async function updateExplore(_parent, args) {
+async function updateExplore(_parent: any, args: any) {
   try {
     const _id = args.args._id;
     delete args.args._id;

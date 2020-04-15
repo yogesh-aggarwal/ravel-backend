@@ -23,6 +23,7 @@
     "typescript": "^3.8.3"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.7.10",
     "nodemon": "^2.0.2"
   }
 }

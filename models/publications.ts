@@ -82,7 +82,7 @@ const PublicationModel = mongoose.model(
 );
 
 //& Methods
-async function createPublication(_parent, args) {
+async function createPublication(_parent: any, args: any) {
   try {
     args = args.args;
     const newPublication = new PublicationModel(args);
@@ -93,7 +93,7 @@ async function createPublication(_parent, args) {
   }
 }
 
-async function deletePublication(_parent, args) {
+async function deletePublication(_parent: any, args: any) {
   try {
     await PublicationModel.deleteOne({ _id: args.args._id });
     return true;
@@ -102,7 +102,7 @@ async function deletePublication(_parent, args) {
   }
 }
 
-async function updatePublication(_parent, args) {
+async function updatePublication(_parent: any, args: any) {
   try {
     const _id = args.args._id;
     delete args.args._id;

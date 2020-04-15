@@ -37,7 +37,7 @@ const Post = new Schema({
 const PostModel = mongoose.model("Post", Post, "posts");
 
 //& Methods
-async function createPost(_parent, args) {
+async function createPost(_parent: any, args: any) {
   try {
     args = args.args;
     args["_id"] = mongoose.Types.ObjectId();
@@ -49,7 +49,7 @@ async function createPost(_parent, args) {
   }
 }
 
-async function deletePost(_parent, args) {
+async function deletePost(_parent: any, args: any) {
   try {
     await PostModel.deleteOne({ _id: args.args._id });
     return true;
@@ -58,7 +58,7 @@ async function deletePost(_parent, args) {
   }
 }
 
-async function updatePost(_parent, args) {
+async function updatePost(_parent: any, args: any) {
   try {
     const _id = args.args._id;
     delete args.args._id;

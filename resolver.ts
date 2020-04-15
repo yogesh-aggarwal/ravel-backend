@@ -16,7 +16,7 @@ const {
 } = require("./models");
 
 //& Get tools
-async function getNewRavels(args) {
+async function getNewRavels(args: any) {
   const newPosts = [
     "5e7f3017e20f723590c45638",
     "5e7f3018e20f723590c45639",
@@ -31,7 +31,7 @@ async function getNewRavels(args) {
 }
 
 //& Get (Models) tools
-async function getUserRecommendations(args) {
+async function getUserRecommendations(args: any) {
   const newPosts = ["5e7f3019e20f723590c4563b"]; // TODO: Get them from database of args.args.quantity
 
   let result = [];
@@ -41,7 +41,7 @@ async function getUserRecommendations(args) {
   return result;
 }
 
-async function getFeaturedUser(args) {
+async function getFeaturedUser(args: any) {
   const user = await User.getUser(null, args);
   // user.data.posts.posts = user.data.posts.posts.slice(0, 3);
   // console.log(user.data.posts.posts);

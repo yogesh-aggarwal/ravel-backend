@@ -138,7 +138,7 @@ const User = new Schema({
 const UserModel = mongoose.model("User", User, "users");
 
 //& Methods
-async function createUser(_parent, args) {
+async function createUser(_parent: any, args: any) {
   try {
     const newUser = new UserModel({
       _id: mongoose.Types.ObjectId(),
@@ -151,7 +151,7 @@ async function createUser(_parent, args) {
   }
 }
 
-async function deleteUser(_parent, args) {
+async function deleteUser(_parent: any, args: any) {
   try {
     await UserModel.deleteOne({ _id: args.args._id });
     return true;
@@ -160,7 +160,7 @@ async function deleteUser(_parent, args) {
   }
 }
 
-async function updateUser(_parent, args) {
+async function updateUser(_parent: any, args: any) {
   try {
     const _id = args.args._id;
     delete args.args._id;

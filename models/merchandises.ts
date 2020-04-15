@@ -26,7 +26,7 @@ const MerchandiseModel = mongoose.model(
 );
 
 //& Methods
-async function createMerchandise(_parent, args) {
+async function createMerchandise(_parent: any, args: any) {
   try {
     args = args.args;
     args["_id"] = mongoose.Types.ObjectId();
@@ -38,7 +38,7 @@ async function createMerchandise(_parent, args) {
   }
 }
 
-async function deleteMerchandise(_parent, args) {
+async function deleteMerchandise(_parent: any, args: any) {
   try {
     await MerchandiseModel.deleteOne({ _id: args.args._id });
     return true;
@@ -47,7 +47,7 @@ async function deleteMerchandise(_parent, args) {
   }
 }
 
-async function updateMerchandise(_parent, args) {
+async function updateMerchandise(_parent: any, args: any) {
   try {
     const _id = args.args._id;
     delete args.args._id;
