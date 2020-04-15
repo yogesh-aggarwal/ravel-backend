@@ -1,26 +1,26 @@
-const Post = require("./models/posts");
-const Merchandise = require("./models/merchandises");
-const User = require("./models/users");
-const Trending = require("./models/trending");
-const Story = require("./models/story");
-const Explore = require("./models/explore");
-const Publication = require("./models/publications");
+export const Post = require("./models/posts")
+export const Merchandise = require("./models/merchandises");
+export const User = require("./models/users")
+export const Trending = require("./models/trending")
+export const Story = require("./models/story")
+export const Explore = require("./models/explore")
+export const Publication = require("./models/publications")
 
 /*
 Explore
 // Merchandises
 // Posts
-Publications
-Story
+// Publications
+// Story
 Trending
 // Users
 */
 
-async function getMerchandise(_parent, args) {
+export async function getMerchandise(_parent, args) {
   return (await Merchandise.model.findById(args.args._id)).toObject();
 }
 
-async function getPost(_parent, args) {
+export async function getPost(_parent, args) {
   let post = (await Post.model.findById(args.args._id)).toObject();
   post.credit.publication = await Publication.model.findById(
     post.credit.publication
@@ -32,7 +32,7 @@ async function getPost(_parent, args) {
   return post;
 }
 
-async function getPublication(_parent, args) {
+export async function getPublication(_parent, args) {
   const publication = (
     await Publication.model.findById(args.args._id)
   ).toObject();
@@ -41,7 +41,7 @@ async function getPublication(_parent, args) {
   let collections = [];
   for (let category of publication.collections) {
     let categoryPosts = [];
-    for (post of category.posts) {
+    for (let post of category.posts) {
       categoryPosts.push(await Post.model.findById(post));
     }
     collections.push({
@@ -52,7 +52,7 @@ async function getPublication(_parent, args) {
   publication.collections = collections;
 
   //& Parse: "publication.publication"
-  publications = [];
+  let publications = [];
   for (let post of publication.publications) {
     publications.push(await Post.model.findById(post));
   }
@@ -82,19 +82,19 @@ async function getPublication(_parent, args) {
   return publication;
 }
 
-async function getUser(_parent, args) {
+export async function getUser(_parent, args) {
   const user = (await User.model.findById({ _id: args.args._id })).toObject();
   const userPosts = user.data.posts;
 
   //& Parse: "posts.posts"
-  posts = [];
+  let posts = [];
   for (let post of userPosts.posts) {
     posts.push(await Post.model.findById(post));
   }
   user.data.posts.posts = posts;
 
   //& Parse: "posts.featuredPosts"
-  featuredPosts = [];
+  let featuredPosts = [];
   for (let featuredPost of userPosts.featuredPosts) {
     featuredPosts.push(await Post.model.findById(featuredPost));
   }
@@ -104,7 +104,7 @@ async function getUser(_parent, args) {
   let categories = [];
   for (let category of userPosts.categories) {
     let categoryPosts = [];
-    for (post of category.posts) {
+    for (let post of category.posts) {
       categoryPosts.push(await Post.model.findById(post));
     }
     categories.push({ name: category.name, posts: categoryPosts });
@@ -115,7 +115,7 @@ async function getUser(_parent, args) {
   let collections = [];
   for (let collection of user.data.collections) {
     let collectionPosts = [];
-    for (post of collection.posts) {
+    for (let post of collection.posts) {
       collectionPosts.push(await Post.model.findById(post));
     }
     collections.push({
@@ -168,9 +168,4 @@ async function getUser(_parent, args) {
   return user;
 }
 
-module.exports = {
-  getMerchandise: getMerchandise,
-  getPost: getPost,
-  getPublication: getPublication,
-  getUser: getUser,
-};
+export async function getStory(_parent, args) {}

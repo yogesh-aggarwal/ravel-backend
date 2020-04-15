@@ -1,31 +1,32 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 const Schema = mongoose.Schema;
 
 //& Schema
 const Trending = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId
+    default: mongoose.Types.ObjectId,
   },
   tags: {
     type: [String],
-    required: true
+    required: true,
   },
   categories: {
     type: [
       {
         name: { type: String, required: true },
-        posts: { type: [String], required: true }
-      }
+        posts: { type: [String], required: true },
+      },
     ],
     required: true,
-    default: []
+    default: [],
   },
   creators: {
     type: [String],
-    required: true
+    required: true,
   },
-  date: { type: Date, required: true, default: Date.now }
+  date: { type: Date, required: true, default: Date.now },
 });
 
 //& Model
@@ -68,28 +69,5 @@ module.exports = {
   model: TrendingModel,
   createTrending: createTrending,
   deleteTrending: deleteTrending,
-  updateTrending: updateTrending
+  updateTrending: updateTrending,
 };
-// require("dotenv").config(); // Configuring env variables
-// mongoose.connect(process.env.DBURL);
-
-// const model = new TrendingModel({
-//   tags: ["ElonMusk", "11D"],
-//   categories: [
-//     {
-//       name: "Psychology",
-//       posts: ["5e7f3017e20f723590c45638"]
-//     },
-//     {
-//       name: "Cyber security",
-//       posts: ["5e7f3018e20f723590c45639", "5e7f3019e20f723590c4563b"]
-//     },
-//     {
-//       name: "Education",
-//       posts: ["5e7f3018e20f723590c4563a"]
-//     }
-//   ],
-//   creators: ["5e8476a0d955be31f8ffeb05"]
-// });
-// console.log(model);
-// model.save();

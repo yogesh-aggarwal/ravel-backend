@@ -2,10 +2,10 @@
   "name": "ravel",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon app.ts"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +18,9 @@
     "express-graphql": "^0.9.0",
     "graphql-import": "^1.0.1",
     "graphql-tools": "^4.0.7",
-    "mongoose": "^5.9.6"
+    "mongoose": "^5.9.6",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.8.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

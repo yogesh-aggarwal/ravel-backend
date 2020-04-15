@@ -1,19 +1,9 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 const Schema = mongoose.Schema;
 
-const Publication = require("./publications");
-const Post = require("./posts");
-const Story = require("./story");
-const Merchandise = require("./merchandises");
-
-//& Models
-PostModel = Post.model;
-PublicationModel = Publication.model;
-StoryModel = Story.model;
-MerchandiseModel = Merchandise.model;
-
 //& Schema
-const User = Schema({
+const User = new Schema({
   _id: Schema.Types.ObjectId,
   history: { type: [String], required: true },
   saved: { type: [String], required: true },
@@ -174,23 +164,12 @@ async function updateUser(_parent, args) {
   try {
     const _id = args.args._id;
     delete args.args._id;
-    await UserPostModel.findOneAndUpdate({ _id: _id }, args.args);
+    await UserModel.findOneAndUpdate({ _id: _id }, args.args);
     return true;
   } catch {
     return false;
   }
 }
-
-// createUser(null, {
-//   args: {
-//     uname: "john-doe",
-//     name: "John Doe",
-//     pword: "theplainpass",
-//     email: "johndoe@email.com",
-//     gender: "M",
-//     bio: "I am John Doe"
-//   }
-// });
 
 module.exports = {
   model: UserModel,

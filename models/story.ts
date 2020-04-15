@@ -1,18 +1,19 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 const Schema = mongoose.Schema;
 
 //& Schema
-const Story = Schema({
+const Story = new Schema({
   _id: Schema.Types.ObjectId,
   content: { type: String, required: true },
   stats: {
     views: { type: Number, required: true, default: 0 },
     likes: { type: Number, required: true, default: 0 },
     appreciations: { type: Number, required: true, default: 0 },
-    applauds: { type: Number, required: true, default: 0 }
+    applauds: { type: Number, required: true, default: 0 },
   },
   comments: { type: [String], required: true, default: [] },
-  datePublished: { type: Date, required: true, default: Date.now }
+  datePublished: { type: Date, required: true, default: Date.now },
 });
 
 //& Model
@@ -30,14 +31,6 @@ async function createStory(_parent, args) {
   }
 }
 
-async function getStory(_parent, args) {
-  try {
-    return (await StoryModel.find({ _id: args.args._id }))[0];
-  } catch {
-    return false;
-  }
-}
-
 async function deleteStory(_parent, args) {
   try {
     await StoryModel.deleteOne({ _id: args.args._id });
@@ -47,9 +40,18 @@ async function deleteStory(_parent, args) {
   }
 }
 
+async function updateStory(_parent, args) {
+  try {
+    await StoryModel.updateOne({ _id: args.args._id }, args.args, () => {});
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 module.exports = {
   model: StoryModel,
   createStory: createStory,
-  getStory: getStory,
-  deleteStory: deleteStory
+  deleteStory: deleteStory,
+  updateStory: updateStory,
 };

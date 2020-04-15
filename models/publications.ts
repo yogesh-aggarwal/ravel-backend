@@ -1,76 +1,77 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 const Schema = mongoose.Schema;
 
 //& Schema
 const Publication = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId
+    default: mongoose.Types.ObjectId,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   cover: {
     type: String,
-    required: true
+    required: true,
   },
   profileImg: {
     type: String,
-    required: true
+    required: true,
   },
   featuredImg: {
     type: String,
-    required: true
+    required: true,
   },
   publications: {
     type: [String],
     required: true,
-    default: []
+    default: [],
   },
   collections: {
     type: [
       {
         name: {
           type: String,
-          required: true
+          required: true,
         },
         posts: {
           type: [String],
-          required: true
-        }
-      }
+          required: true,
+        },
+      },
     ],
     required: true,
-    default: []
+    default: [],
   },
   papers: {
     type: [String],
     required: true,
-    default: []
+    default: [],
   },
   owners: {
     type: [String],
-    required: true
+    required: true,
   },
   followers: {
     type: [String],
-    required: true
+    required: true,
   },
   members: {
     type: [String],
-    required: true
+    required: true,
   },
   dateCreated: {
     type: Date,
     required: true,
-    default: Date.now
+    default: Date.now,
   },
   dateUpdated: {
     type: Date,
     required: true,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 //& Model
@@ -87,14 +88,6 @@ async function createPublication(_parent, args) {
     const newPublication = new PublicationModel(args);
     newPublication.save();
     return true;
-  } catch {
-    return false;
-  }
-}
-
-async function getPublication(_parent, args) {
-  try {
-    return (await PublicationModel.find({ _id: args.args._id }))[0];
   } catch {
     return false;
   }
@@ -123,7 +116,6 @@ async function updatePublication(_parent, args) {
 module.exports = {
   model: PublicationModel,
   createPublication: createPublication,
-  getPublication: getPublication,
   deletePublication: deletePublication,
-  updatePublication: updatePublication
+  updatePublication: updatePublication,
 };

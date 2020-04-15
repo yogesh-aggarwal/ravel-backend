@@ -1,10 +1,6 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import mongoose from "mongoose";
 
-//& Models
-// PublicationModel = models.Publication;
-// console.log(models);
-// UserModel = User.model;
+const Schema = mongoose.Schema;
 
 //& Schema
 const Post = new Schema({
@@ -18,23 +14,23 @@ const Post = new Schema({
   credit: {
     author: {
       type: String,
-      required: true
+      required: true,
     },
     publication: {
       type: String,
       required: true,
-      default: "5e834ed984f4ca32d083de90" //? Ravel official
-    }
+      default: "5e834ed984f4ca32d083de90", //? Ravel official
+    },
   },
   tags: { type: [String], required: true },
   stats: {
     views: { type: Number, required: true, default: 0 },
     likes: { type: Number, required: true, default: 0 },
     appreciations: { type: Number, required: true, default: 0 },
-    applauds: { type: Number, required: true, default: 0 }
+    applauds: { type: Number, required: true, default: 0 },
   },
   datePublished: { type: Date, required: true, default: Date.now },
-  dateUpdated: { type: Date, required: true, default: Date.now }
+  dateUpdated: { type: Date, required: true, default: Date.now },
 });
 
 //& Model
@@ -77,5 +73,5 @@ module.exports = {
   model: PostModel,
   createPost: createPost,
   deletePost: deletePost,
-  updatePost: updatePost
+  updatePost: updatePost,
 };

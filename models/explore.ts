@@ -1,29 +1,30 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 const Schema = mongoose.Schema;
 
 //& Schema
 const Explore = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId
+    default: mongoose.Types.ObjectId,
   },
   tags: {
     type: [String],
-    required: true
+    required: true,
   },
   publications: {
     type: [String],
-    required: true
+    required: true,
   },
   creators: {
     type: [String],
-    required: true
+    required: true,
   },
   posts: {
     type: [String],
-    required: true
+    required: true,
   },
-  date: { type: Date, required: true, default: Date.now }
+  date: { type: Date, required: true, default: Date.now },
 });
 
 //& Model
@@ -62,12 +63,9 @@ async function updateExplore(_parent, args) {
   }
 }
 
-require("dotenv").config(); // Configuring env variables
-mongoose.connect(process.env.DBURL);
-
 module.exports = {
   model: ExploreModel,
   createExplore: createExplore,
   deleteExplore: deleteExplore,
-  updateExplore: updateExplore
+  updateExplore: updateExplore,
 };

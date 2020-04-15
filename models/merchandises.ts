@@ -1,24 +1,29 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 const Schema = mongoose.Schema;
 
 //& Schema
-const Merchandise = Schema({
+const Merchandise = new Schema({
   _id: Schema.Types.ObjectId,
   name: {
     type: String,
-    required: true
+    required: true,
   },
   pictures: { type: [String], required: true },
   price: {
     type: Number,
-    required: true
+    required: true,
   },
   dateAdded: { type: Date, required: true, default: Date.now },
-  dateUpdated: { type: Date, required: true, default: Date.now }
+  dateUpdated: { type: Date, required: true, default: Date.now },
 });
 
 //& Model
-const MerchandiseModel = mongoose.model("Merchandise", Merchandise, "merchandises");
+const MerchandiseModel = mongoose.model(
+  "Merchandise",
+  Merchandise,
+  "merchandises"
+);
 
 //& Methods
 async function createMerchandise(_parent, args) {
@@ -28,14 +33,6 @@ async function createMerchandise(_parent, args) {
     const newMerchandise = new MerchandiseModel(args);
     newMerchandise.save();
     return true;
-  } catch {
-    return false;
-  }
-}
-
-async function getMerchandise(_parent, args) {
-  try {
-    return (await MerchandiseModel.find({ _id: args.args._id }))[0];
   } catch {
     return false;
   }
@@ -64,7 +61,6 @@ async function updateMerchandise(_parent, args) {
 module.exports = {
   model: MerchandiseModel,
   createMerchandise: createMerchandise,
-  getMerchandise: getMerchandise,
   deleteMerchandise: deleteMerchandise,
-  updateMerchandise: updateMerchandise
+  updateMerchandise: updateMerchandise,
 };
