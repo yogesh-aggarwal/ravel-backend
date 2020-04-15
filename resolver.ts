@@ -15,8 +15,6 @@ const {
   getStory,
 } = require("./models");
 
-console.log(Post);
-
 //& Get tools
 async function getNewRavels(args: any) {
   const newPosts = [
@@ -52,7 +50,7 @@ async function getFeaturedUser(args: any) {
 
 async function getTrending() {
   let trending = (
-    await Trending.find().limit(1).sort({ $natural: -1 })
+    await Trending.model.find().limit(1).sort({ $natural: -1 })
   )[0].toObject();
 
   //& Parse: "trending.categories"
