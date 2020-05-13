@@ -21,14 +21,22 @@ export async function getMerchandise(_parent: any, args: any) {
   return (await Merchandise.model.findById(args.args._id)).toObject();
 }
 
-export async function getPost(_parent: any, args: any) {
+export async function getPost(
+  _parent: any,
+  args: any,
+  collectionFromUserModel: boolean = true
+) {
   let post = (await Post.model.findById(args.args._id)).toObject();
   post.credit.publication = await Publication.model.findById(
     post.credit.publication
   );
-  post.credit.author = await getUser(null, {
-    args: { _id: post.credit.author },
-  });
+  post.credit.author = await getUser(
+    null,
+    {
+      args: { _id: post.credit.author },
+    },
+    collectionFromUserModel
+  );
 
   return post;
 }
@@ -83,7 +91,12 @@ export async function getPublication(_parent: any, args: any) {
   return publication;
 }
 
-export async function getUser(_parent: any, args: any) {
+export async function getUser(
+  _parent: any,
+  args: any,
+  collectionFromUserModel: boolean = true
+) {
+  console.log(args);
   const user = (await User.model.findById({ _id: args.args._id })).toObject();
   const userPosts = user.data.posts;
 
@@ -113,11 +126,13 @@ export async function getUser(_parent: any, args: any) {
   user.data.posts.categories = categories;
 
   //& Parse: "collections"
-  let collections = [];
-  for (let collection of user.data.collections) {
-    collections.push(getCollection(null, { args: { _id: collection } }));
+  if (collectionFromUserModel) {
+    let collections = [];
+    for (let collection of user.data.collections) {
+      collections.push(getCollection(null, { args: { _id: collection } }));
+    }
+    user.data.collections = collections;
   }
-  user.data.collections = collections;
 
   //& Parse: "memberOf"
   let memberOf = [];
@@ -167,7 +182,7 @@ export async function getCollection(_parent: any, args: any) {
   let posts = [];
   for (let post of collectionPosts) {
     try {
-      posts.push(await getPost(null, { args: { _id: post } }));
+      posts.push(await getPost(null, { args: { _id: post } }, false));
     } catch {}
   }
   collection.posts = posts;
