@@ -16,7 +16,7 @@ type UserData {
   bio: String!
   isSuspended: Boolean!
   socialLinks: [String!]!
-  collections: [UserCollection!]!
+  collections: [Collection!]!
   memberOf: [Publication!]!
   posts: UserPosts!
   stories: [Story]!
@@ -35,16 +35,6 @@ type UserPosts {
   categories: [UserPostsCategories!]!
   posts: [Post!]!
   featuredPosts: [Post!]!
-}
-
-type UserCollection {
-  title: String!
-  description: String!
-  thumbnail: String!
-  tags: [String!]!
-  dateCreated: String!
-  dateUpdated: String!
-  posts: [Post!]!
 }
 
 type UserPostsCategories {
@@ -70,15 +60,19 @@ input UserCreateInp {
 
 input UserUpdateInp {
   _id: String!
-  name: String
-  pword: String
-  email: String
-  gender: String
-  profileImg: String
-  coverImg: String
-  description: String
-  socialLinks: [String!]
-  content: String
-  tags: [String]
-  merchandise: [String!]
+  history: [String!]!
+  saved: [String!]!
+  data: UserDataInp!
+}
+
+input UserDataInp {
+  uname: String!
+  pword: String!
+  email: String!
+  gender: String!
+  coverImg: String!
+  profileImg: String!
+  name: String!
+  bio: String!
+  socialLinks: [String!]!
 }

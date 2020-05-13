@@ -30,18 +30,7 @@ const Publication = new Schema({
     default: [],
   },
   collections: {
-    type: [
-      {
-        name: {
-          type: String,
-          required: true,
-        },
-        posts: {
-          type: [String],
-          required: true,
-        },
-      },
-    ],
+    type: [String],
     required: true,
     default: [],
   },

@@ -1,4 +1,5 @@
 export const Post = require("./models/posts");
+export const Collection = require("./models/collections");
 export const Merchandise = require("./models/merchandises");
 export const User = require("./models/users");
 export const Trending = require("./models/trending");
@@ -114,19 +115,7 @@ export async function getUser(_parent: any, args: any) {
   //& Parse: "collections"
   let collections = [];
   for (let collection of user.data.collections) {
-    let collectionPosts = [];
-    for (let post of collection.posts) {
-      collectionPosts.push(await Post.model.findById(post));
-    }
-    collections.push({
-      title: collection.title,
-      description: collection.description,
-      thumbnail: collection.thumbnail,
-      tags: collection.tags,
-      dateCreated: collection.dateCreated,
-      dateUpdated: collection.dateUpdated,
-      posts: collectionPosts,
-    });
+    collections.push(getCollection(null, { args: { _id: collection } }));
   }
   user.data.collections = collections;
 
@@ -166,6 +155,23 @@ export async function getUser(_parent: any, args: any) {
   user.data.merchandise = merchandises;
 
   return user;
+}
+
+export async function getCollection(_parent: any, args: any) {
+  const collection = (
+    await Collection.model.findById({ _id: args.args._id })
+  ).toObject();
+  const collectionPosts = collection.posts;
+
+  //& Parse: "posts"
+  let posts = [];
+  for (let post of collectionPosts) {
+    try {
+      posts.push(await getPost(null, { args: { _id: post } }));
+    } catch {}
+  }
+  collection.posts = posts;
+  return collection;
 }
 
 export async function getStory(_parent: any, args: any) {}

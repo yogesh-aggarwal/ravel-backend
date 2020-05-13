@@ -1,0 +1,13 @@
+type Collection {
+  title: String!
+  description: String!
+  thumbnail: String!
+  tags: [String!]!
+  posts: [Post!]!
+  dateCreated: String!
+  dateUpdated: String!
+}
+
+input getCollectionRDInp {
+  _id: String!
+}

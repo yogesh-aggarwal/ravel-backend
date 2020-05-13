@@ -9,6 +9,7 @@ const {
   Story,
 
   getPost,
+  getCollection,
   getUser,
   getPublication,
   getMerchandise,
@@ -111,6 +112,7 @@ async function getExplore() {
 module.exports = {
   QueryResolver: {
     getPost: getPost,
+    getCollection: getCollection,
     getStory: getStory,
     getMerchandise: getMerchandise,
     getUser: getUser,
