@@ -1,0 +1,10 @@
+type CommunityPost {
+  _id: String!
+  content: String!
+  datePublished: Int!
+  owner: User!
+}
+
+input CommunityPostRDInp {
+  _id: String!
+}

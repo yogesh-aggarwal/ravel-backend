@@ -2,6 +2,7 @@
 # import Story, StoryRDInp, StoryCreateInp, StoryUpdateInp from "./story.gql"
 # import Merchandise, MerchandiseRDInp, MerchandiseCreateInp, MerchandiseUpdateInp from "./merchandises.gql"
 # import User, UserRDInp, UserCreateInp, UserUpdateInp from "./users.gql"
+# import CommunityPost, CommunityPostRDInp from "./community-posts.gql"
 # import Publication, PublicationRDInp, PublicationCreateInp, PublicationUpdateInp from "./publications.gql"
 # import Collection, CollectionRDInp from "./collections.gql"
 # import Paper from "./paper.gql"
@@ -12,6 +13,7 @@ type QueryResolver {
   getStory(args: StoryRDInp): Story!
   getMerchandise(args: MerchandiseRDInp): Merchandise!
   getUser(args: UserRDInp): User!
+  getCommunityPost(args: CommunityPostRDInp): CommunityPost!
   getPublication(args: getPublicationRDInp): Publication!
   getCollection(args: getCollectionRDInp): Collection!
   # Other tools

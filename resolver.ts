@@ -11,6 +11,7 @@ const {
   getPost,
   getCollection,
   getUser,
+  getCommunityPost,
   getPublication,
   getMerchandise,
   getStory,
@@ -116,6 +117,7 @@ module.exports = {
     getStory: getStory,
     getMerchandise: getMerchandise,
     getUser: getUser,
+    getCommunityPost: getCommunityPost,
     getPublication: getPublication,
     // Other tools
     getNewRavels: getNewRavels,

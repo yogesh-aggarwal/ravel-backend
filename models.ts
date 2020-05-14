@@ -1,12 +1,14 @@
 export const Post = require("./models/posts");
 export const Collection = require("./models/collections");
 export const Merchandise = require("./models/merchandises");
+export const CommunityPost = require("./models/community-post");
 export const User = require("./models/users");
 export const Trending = require("./models/trending");
 export const Story = require("./models/story");
 export const Explore = require("./models/explore");
 export const Publication = require("./models/publications");
 
+//? "Get" functions are seperated because every model requires to retrieve data from another model (To prevent circular imports).
 /*
 Explore
 // Merchandises
@@ -35,7 +37,7 @@ export async function getPost(
     {
       args: { _id: post.credit.author },
     },
-    collectionFromUserModel
+    { collection: collectionFromUserModel }
   );
 
   return post;
@@ -70,21 +72,21 @@ export async function getPublication(_parent: any, args: any) {
   //& Parse: "publication.owners"
   let owners = [];
   for (let owner of publication.owners) {
-    owners.push(await getUser(null, { args: { _id: owner } }));
+    owners.push(await getUser(null, { args: { _id: owner } }, {}));
   }
   publication.owners = owners;
 
   //& Parse: "publication.followers"
   let followers = [];
   for (let follower of publication.followers) {
-    followers.push(await getUser(null, { args: { _id: follower } }));
+    followers.push(await getUser(null, { args: { _id: follower } }, {}));
   }
   publication.followers = followers;
 
   //& Parse: "publication.members"
   let members = [];
   for (let member of publication.members) {
-    members.push(await getUser(null, { args: { _id: member } }));
+    members.push(await getUser(null, { args: { _id: member } }, {}));
   }
   publication.members = members;
 
@@ -94,9 +96,8 @@ export async function getPublication(_parent: any, args: any) {
 export async function getUser(
   _parent: any,
   args: any,
-  collectionFromUserModel: boolean = true
+  { collection = true, community = true }
 ) {
-  console.log(args);
   const user = (await User.model.findById({ _id: args.args._id })).toObject();
   const userPosts = user.data.posts;
 
@@ -126,12 +127,23 @@ export async function getUser(
   user.data.posts.categories = categories;
 
   //& Parse: "collections"
-  if (collectionFromUserModel) {
+  if (collection) {
     let collections = [];
     for (let collection of user.data.collections) {
       collections.push(getCollection(null, { args: { _id: collection } }));
     }
     user.data.collections = collections;
+  }
+
+  //& Parse: "community"
+  if (community) {
+    let communityPosts = [];
+    for (let communityPost of user.data.communityPosts) {
+      communityPosts.push(
+        getCommunityPost(null, { args: { _id: communityPost } })
+      );
+    }
+    user.data.communityPosts = communityPosts;
   }
 
   //& Parse: "memberOf"
@@ -187,6 +199,18 @@ export async function getCollection(_parent: any, args: any) {
   }
   collection.posts = posts;
   return collection;
+}
+
+export async function getCommunityPost(_parent: any, { args }: any) {
+  const communityPost = (
+    await CommunityPost.model.findById(args._id)
+  ).toObject();
+  communityPost.owner = getUser(
+    null,
+    { args: { _id: communityPost.owner } },
+    { community: false }
+  );
+  return communityPost;
 }
 
 export async function getStory(_parent: any, args: any) {}
