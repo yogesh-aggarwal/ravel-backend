@@ -138,12 +138,16 @@ export async function getUser(
   //& Parse: "community"
   if (community) {
     let communityPosts = [];
-    for (let communityPost of user.data.communityPosts) {
+    for (let communityPost of user.data.community) {
       communityPosts.push(
-        getCommunityPost(null, { args: { _id: communityPost } })
+        await getCommunityPost(
+          null,
+          { args: { _id: communityPost } },
+          { user: false }
+        )
       );
     }
-    user.data.communityPosts = communityPosts;
+    user.data.community = communityPosts;
   }
 
   //& Parse: "memberOf"
@@ -166,7 +170,6 @@ export async function getUser(
     followers.push(await User.model.findById(follower));
   }
   user.data.followers = followers;
-
   //& Parse: "followings"
   let followings = [];
   for (let following of user.data.following) {
@@ -180,7 +183,7 @@ export async function getUser(
     merchandises.push(await User.model.findById(merchandise));
   }
   user.data.merchandise = merchandises;
-
+  console.log(user);
   return user;
 }
 
@@ -201,15 +204,20 @@ export async function getCollection(_parent: any, args: any) {
   return collection;
 }
 
-export async function getCommunityPost(_parent: any, { args }: any) {
+export async function getCommunityPost(
+  _parent: any,
+  { args }: any,
+  { user = true }
+) {
   const communityPost = (
     await CommunityPost.model.findById(args._id)
   ).toObject();
-  communityPost.owner = getUser(
-    null,
-    { args: { _id: communityPost.owner } },
-    { community: false }
-  );
+  if (user)
+    communityPost.owner = getUser(
+      null,
+      { args: { _id: communityPost.owner } },
+      { community: false }
+    );
   return communityPost;
 }
 
