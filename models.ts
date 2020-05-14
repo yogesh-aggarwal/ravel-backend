@@ -183,7 +183,6 @@ export async function getUser(
     merchandises.push(await User.model.findById(merchandise));
   }
   user.data.merchandise = merchandises;
-  console.log(user);
   return user;
 }
 

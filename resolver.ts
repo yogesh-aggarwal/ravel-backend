@@ -44,7 +44,7 @@ async function getUserRecommendations(args: any) {
 }
 
 async function getFeaturedUser(args: any) {
-  const user = await getUser(null, args);
+  const user = await getUser(null, args, {});
   // user.data.posts.posts = user.data.posts.posts.slice(0, 3);
   // console.log(user.data.posts.posts);
   return user;
@@ -72,7 +72,7 @@ async function getTrending() {
   //& Parse "trending.creators"
   let creators = [];
   for (let creator of trending.creators) {
-    creators.push(await getUser(null, { args: { _id: creator } }));
+    creators.push(await getUser(null, { args: { _id: creator } }, {}));
   }
   trending.creators = creators;
 
@@ -96,7 +96,7 @@ async function getExplore() {
   //& Parse: "Explore.creators"
   let creators = [];
   for (let creator of explore.creators) {
-    creators.push(await getUser(null, { args: { _id: creator } }));
+    creators.push(await getUser(null, { args: { _id: creator } }, {}));
   }
   explore.creators = creators;
 

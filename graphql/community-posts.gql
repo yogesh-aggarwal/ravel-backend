@@ -1,7 +1,7 @@
 type CommunityPost {
   _id: String!
   content: String!
-  datePublished: Int!
+  datePublished: String!
   owner: User!
 }
 
