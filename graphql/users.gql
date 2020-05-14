@@ -19,6 +19,7 @@ type UserData {
   collections: [Collection!]!
   memberOf: [Publication!]!
   posts: UserPosts!
+  community: [CommunityPost!]!
   stories: [Story]!
   followers: [User]!
   following: [User]!
