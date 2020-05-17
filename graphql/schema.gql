@@ -8,6 +8,8 @@
 # import Paper from "./paper.gql"
 # import getNewRavelsInp, getFeaturedUserInp, Trending from "./tools.gql"
 
+scalar JSON
+
 type QueryResolver {
   getPost(args: PostRDInp): Post!
   getStory(args: StoryRDInp): Story!

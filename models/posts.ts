@@ -7,7 +7,7 @@ const Post = new Schema({
   _id: Schema.Types.ObjectId,
   title: { type: String, required: true, trim: true, maxlength: 55 },
   description: { type: String, required: true, trim: true, maxlength: 300 },
-  content: { type: String, required: true },
+  content: { type: Schema.Types.Mixed, required: true },
   thumbnail: { type: String, required: true },
   readTime: { type: String, required: false },
   comments: { type: [String], required: true },
