@@ -9,6 +9,14 @@ type Collection {
   dateUpdated: String
 }
 
-input getCollectionRDInp {
+input CollectionRDInp {
   _id: String
+}
+
+input CollectionCreateInp {
+  title: String
+}
+
+input CollectionUpdateInp {
+  title: String
 }

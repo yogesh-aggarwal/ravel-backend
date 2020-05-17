@@ -14,11 +14,11 @@ type Publication {
   dateUpdated: String
 }
 
-input getPublicationRDInp {
+input PublicationRDInp {
   _id: String
 }
 
-input createPublication {
+input PublicationCreateInp {
   name: String
   cover: String
   profileImg: String
@@ -26,7 +26,7 @@ input createPublication {
   members: [String]
 }
 
-input updatePublication {
+input PublicationUpdateInp {
   name: String
   cover: String
   profileImg: String

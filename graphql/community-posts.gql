@@ -5,6 +5,14 @@ type CommunityPost {
   owner: User
 }
 
+input CommunityPostCreateInp {
+  _id: String
+}
+
+input CommunityPostUpdateInp {
+  _id: String
+}
+
 input CommunityPostRDInp {
   _id: String
 }

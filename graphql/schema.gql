@@ -1,23 +1,23 @@
-# import Post, PostRDInp, PostCreateInp, PostUpdateInp from "./posts.gql"
-# import Story, StoryRDInp, StoryCreateInp, StoryUpdateInp from "./story.gql"
+# import Collection, CollectionRDInp, CollectionCreateInp, CollectionUpdateInp from "./collections.gql"
+# import CommunityPost, CommunityPostRDInp, CommunityPostCreateInp, CommunityPostUpdateInp from "./community-posts.gql"
 # import Merchandise, MerchandiseRDInp, MerchandiseCreateInp, MerchandiseUpdateInp from "./merchandises.gql"
-# import User, UserRDInp, UserCreateInp, UserUpdateInp from "./users.gql"
-# import CommunityPost, CommunityPostRDInp from "./community-posts.gql"
+# import Post, PostRDInp, PostCreateInp, PostUpdateInp from "./posts.gql"
 # import Publication, PublicationRDInp, PublicationCreateInp, PublicationUpdateInp from "./publications.gql"
-# import Collection, CollectionRDInp from "./collections.gql"
+# import Story, StoryRDInp, StoryCreateInp from "./story.gql"
+# import User, UserRDInp, UserCreateInp, UserUpdateInp from "./users.gql"
 # import Paper from "./paper.gql"
 # import getNewRavelsInp, getFeaturedUserInp, Trending from "./tools.gql"
 
 scalar JSON
 
 type QueryResolver {
-  getPost(args: PostRDInp): Post
-  getStory(args: StoryRDInp): Story
-  getMerchandise(args: MerchandiseRDInp): Merchandise
-  getUser(args: UserRDInp): User
+  getCollection(args: CollectionRDInp): Collection
   getCommunityPost(args: CommunityPostRDInp): CommunityPost
-  getPublication(args: getPublicationRDInp): Publication
-  getCollection(args: getCollectionRDInp): Collection
+  getMerchandise(args: MerchandiseRDInp): Merchandise
+  getPost(args: PostRDInp): Post
+  getPublication(args: PublicationRDInp): Publication
+  getStory(args: StoryRDInp): Story
+  getUser(args: UserRDInp): User
   # Other tools
   getNewRavels(args: getNewRavelsInp): [Post]
   getUserRecommendations(args: getUserRecommendationsInp): [Post]
@@ -27,21 +27,33 @@ type QueryResolver {
 }
 
 type MutationResolver {
-  # Post
-  deletePost(args: PostRDInp): Boolean
-  createPost(args: PostCreateInp): Boolean
-  updatePost(args: PostUpdateInp): Boolean
-  # Story
-  deleteStory(args: StoryRDInp): Boolean
-  createStory(args: StoryCreateInp): Boolean
+  # Collection
+  createCollection(args: CollectionCreateInp): Boolean
+  updateCollection(args: CollectionUpdateInp): Boolean
+  deleteCollection(args: CollectionRDInp): Boolean
+  # CommunityPost
+  createCommunityPost(args: CommunityPostCreateInp): Boolean
+  updateCommunityPost(args: CommunityPostUpdateInp): Boolean
+  deleteCommunityPost(args: CommunityPostRDInp): Boolean
   # Merchandise
-  deleteMerchandise(args: MerchandiseRDInp): Boolean
   createMerchandise(args: MerchandiseCreateInp): Boolean
   updateMerchandise(args: MerchandiseUpdateInp): Boolean
+  deleteMerchandise(args: MerchandiseRDInp): Boolean
+  # Post
+  createPost(args: PostCreateInp): Boolean
+  updatePost(args: PostUpdateInp): Boolean
+  deletePost(args: PostRDInp): Boolean
+  # Publication
+  createPublication(args: PublicationCreateInp): Boolean
+  updatePublication(args: PublicationUpdateInp): Boolean
+  deletePublication(args: PublicationRDInp): Boolean
+  # Story
+  createStory(args: StoryCreateInp): Boolean
+  deleteStory(args: StoryRDInp): Boolean
   # User
-  deleteUser(args: UserRDInp): Boolean
   createUser(args: UserCreateInp): Boolean
   updateUser(args: UserUpdateInp): Boolean
+  deleteUser(args: UserRDInp): Boolean
 }
 
 schema {

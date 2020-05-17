@@ -139,13 +139,13 @@ async function getExplore() {
 export default {
   JSON: GraphQLJSON,
   QueryResolver: {
-    getPost: getPost,
     getCollection: getCollection,
-    getStory: getStory,
-    getMerchandise: getMerchandise,
-    getUser: getUser,
     getCommunityPost: getCommunityPost,
+    getMerchandise: getMerchandise,
+    getPost: getPost,
     getPublication: getPublication,
+    getStory: getStory,
+    getUser: getUser,
     // Other tools
     getNewRavels: getNewRavels,
     getUserRecommendations: getUserRecommendations,
@@ -154,20 +154,32 @@ export default {
     getFeaturedUser: getFeaturedUser,
   },
   MutationResolver: {
+    // Collection
+    createCollection: createCollection,
+    updateCollection: updateCollection,
+    deleteCollection: deleteCollection,
+    // CommunityPost
+    createCommunityPost: createCommunityPost,
+    updateCommunityPost: updateCommunityPost,
+    deleteCommunityPost: deleteCommunityPost,
+    // Merchandise
+    createMerchandise: createMerchandise,
+    updateMerchandise: updateMerchandise,
+    deleteMerchandise: deleteMerchandise,
     // Post
-    deletePost: deletePost,
     createPost: createPost,
     updatePost: updatePost,
+    deletePost: deletePost,
+    // Publication
+    createPublication: createPublication,
+    updatePublication: updatePublication,
+    deletePublication: deletePublication,
     // Story
     createStory: createStory,
     deleteStory: deleteStory,
-    // Merchandise
-    deleteMerchandise: deleteMerchandise,
-    createMerchandise: createMerchandise,
-    updateMerchandise: updateMerchandise,
     // User
-    deleteUser: deleteUser,
     createUser: createUser,
     updateUser: updateUser,
+    deleteUser: deleteUser,
   },
 };

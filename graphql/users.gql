@@ -43,6 +43,18 @@ type UserPostsCategories {
   posts: [Post]
 }
 
+input UserDataInp {
+  uname: String
+  pword: String
+  email: String
+  gender: String
+  coverImg: String
+  profileImg: String
+  name: String
+  bio: String
+  socialLinks: [String]
+}
+
 input UserRDInp {
   _id: String
 }
@@ -64,16 +76,4 @@ input UserUpdateInp {
   history: [String]
   saved: [String]
   data: UserDataInp
-}
-
-input UserDataInp {
-  uname: String
-  pword: String
-  email: String
-  gender: String
-  coverImg: String
-  profileImg: String
-  name: String
-  bio: String
-  socialLinks: [String]
 }

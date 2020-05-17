@@ -14,9 +14,7 @@ mongoose
   })
   .then(() => {
     const server = new ApolloServer({ typeDefs, resolvers });
-    server.listen({ port: 44800 }).then(({ port }: any) => {
-      console.log(
-        `🚀 Server is up and running at http://localhost:${port}`
-      );
+    server.listen({ port: process.env.PORT }).then(({ port }: any) => {
+      console.log(`🚀 Server is up and running at http://localhost:${port}`);
     });
   });
