@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { CollectionModel, getCollection } from './collections';
-import { PublicationModel } from './publications';
-import { StoryModel } from './story';
-import { getCommunityPost } from './community-post';
-import { PostModel, getPost } from './posts';
+import { CollectionModel, getCollection } from "./collections";
+import { PublicationModel } from "./publications";
+import { StoryModel } from "./story";
+import { getCommunityPost } from "./community-post";
+import { PostModel, getPost } from "./posts";
 
 const Schema = mongoose.Schema;
 
@@ -35,14 +35,12 @@ const User = new Schema({
     coverImg: {
       type: String,
       required: true,
-      default:
-        "https://i.pinimg.com/originals/60/2a/19/602a19543fde7f6c77421cbbfd82c147.jpg",
+      default: "https://bit.ly/35PJbj1",
     },
     profileImg: {
       type: String,
       required: true,
-      default:
-        "https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ", // TODO: Change it on the basis of gender
+      default: "https://bit.ly/2yXnT74", // TODO: Change it on the basis of gender
     },
     name: {
       type: String,
@@ -268,4 +266,3 @@ export async function getUser(
   user.data.merchandise = merchandises;
   return user;
 }
-
