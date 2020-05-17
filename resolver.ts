@@ -22,7 +22,7 @@ import {
   updateTrending,
   deleteTrending,
 } from "./models/trending";
-import { createStory, updateStory, deleteStory } from "./models/story";
+import { createStory, deleteStory } from "./models/story";
 import { ExploreModel } from "./models/explore";
 import {
   createPublication,
