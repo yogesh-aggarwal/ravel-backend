@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { UserModel } from "./users";
 
 const Schema = mongoose.Schema;
 
@@ -69,4 +70,29 @@ export async function updatePost(_parent: any, { args }: any) {
     .catch(() => {
       return false;
     });
+}
+
+export async function getPost(
+  _parent: any,
+  { args }: any,
+  collectionFromUserModel: boolean = true
+) {
+  // console.log(args);
+  // console.log(PostModel);
+  let post = await PostModel.findOne({ _id: args._id });
+  console.log(post);
+  return post;
+  // post?.toObject();
+  // post.credit.publication = await PublicationModel.findById(
+  //   post.credit.publication
+  // );
+  // post.credit.author = await getUser(
+  //   null,
+  //   {
+  //     args: { _id: post.credit.author },
+  //   },
+  //   { collection: collectionFromUserModel }
+  // );
+
+  // return post;
 }

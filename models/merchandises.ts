@@ -62,3 +62,7 @@ export async function updateMerchandise(_parent: any, { args }: any) {
       return false;
     });
 }
+
+export async function getMerchandise(_parent: any, { args }: any) {
+  return (await MerchandiseModel.findById(args._id))?.toObject();
+}

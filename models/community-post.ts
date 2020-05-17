@@ -1,4 +1,5 @@
 import { Schema, Types, model } from "mongoose";
+import { getUser } from './users';
 
 const CommunityPostSchema = new Schema({
   _id: {
@@ -42,4 +43,21 @@ export async function deleteCommunityPost(_parent: any, { args }: any) {
     .catch(() => {
       return false;
     });
+}
+
+export async function getCommunityPost(
+  _parent: any,
+  { args }: any,
+  { user = true }
+) {
+  const communityPost = (
+    await CommunityPostModel.findById(args._id)
+  )?.toObject();
+  if (user)
+    communityPost.owner = getUser(
+      null,
+      { args: { _id: communityPost.owner } },
+      { community: false }
+    );
+  return communityPost;
 }

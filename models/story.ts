@@ -42,3 +42,5 @@ export async function deleteStory(_parent: any, { args }: any) {
       return false;
     });
 }
+
+export async function getStory(_parent: any, { args }: any) {}

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { getPost } from './posts';
 
 const Schema = mongoose.Schema;
 
@@ -41,7 +42,11 @@ const Collection = new Schema({
 });
 
 //& Model
-export const CollectionModel = mongoose.model("Collection", Collection, "collections");
+export const CollectionModel = mongoose.model(
+  "Collection",
+  Collection,
+  "collections"
+);
 
 //& Methods
 export async function createCollection(_parent: any, { args }: any) {
@@ -72,4 +77,21 @@ export async function updateCollection(_parent: any, { args }: any) {
     .catch(() => {
       return false;
     });
+}
+
+export async function getCollection(_parent: any, { args }: any) {
+  const collection = (
+    await CollectionModel.findById({ _id: args._id })
+  )?.toObject();
+  const collectionPosts = collection.posts;
+
+  //& Parse: "posts"
+  let posts = [];
+  for (let post of collectionPosts) {
+    try {
+      posts.push(await getPost(null, { args: { _id: post } }, false));
+    } catch {}
+  }
+  collection.posts = posts;
+  return collection;
 }
