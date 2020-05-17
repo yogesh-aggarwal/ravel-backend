@@ -1,23 +1,23 @@
 type Merchandise {
-  _id: String!
-  name: String!
-  pictures: [String!]!
-  price: Float!
+  _id: String
+  name: String
+  pictures: [String]
+  price: Float
 }
 
 input MerchandiseRDInp {
-  _id: String!
+  _id: String
 }
 
 input MerchandiseCreateInp {
-  name: String!
-  pictures: [String!]!
-  price: Float!
+  name: String
+  pictures: [String]
+  price: Float
 }
 
 input MerchandiseUpdateInp {
-  _id: String!
+  _id: String
   name: String
-  pictures: [String!]
+  pictures: [String]
   price: Float
 }

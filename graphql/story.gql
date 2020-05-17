@@ -1,22 +1,22 @@
 type Story {
-  _id: String!
-  content: String!
-  stats: StoryStats!
-  datePublished: String!
-  comments: [String!]!
+  _id: String
+  content: String
+  stats: StoryStats
+  datePublished: String
+  comments: [String]
 }
 
 type StoryStats {
-  views: Int!
-  likes: Int!
-  appreciations: Int!
-  applauds: Int!
+  views: Int
+  likes: Int
+  appreciations: Int
+  applauds: Int
 }
 
 input StoryRDInp {
-  _id: String!
+  _id: String
 }
 
 input StoryCreateInp {
-  content: String!
+  content: String
 }

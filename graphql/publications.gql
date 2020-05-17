@@ -1,29 +1,29 @@
 type Publication {
-  _id: String!
-  name: String!
-  cover: String!
-  profileImg: String!
-  featuredImg: String!
-  posts: [Post!]!
-  collections: [[String!]!]!  # TODO: Create a new model of collection
-  papers: [Paper!]!
-  followers: [User!]!
-  owners: [User!]!
-  members: [User!]!
-  dateCreated: String!
-  dateUpdated: String!
+  _id: String
+  name: String
+  cover: String
+  profileImg: String
+  featuredImg: String
+  posts: [Post]
+  collections: [[String]] # TODO: Create a new model of collection
+  papers: [Paper]
+  followers: [User]
+  owners: [User]
+  members: [User]
+  dateCreated: String
+  dateUpdated: String
 }
 
 input getPublicationRDInp {
-  _id: String!
+  _id: String
 }
 
 input createPublication {
-  name: String!
-  cover: String!
-  profileImg: String!
-  owners: [String!]!
-  members: [String!]!
+  name: String
+  cover: String
+  profileImg: String
+  owners: [String]
+  members: [String]
 }
 
 input updatePublication {
@@ -31,9 +31,9 @@ input updatePublication {
   cover: String
   profileImg: String
   featuredImg: String
-  posts: [String!]
-  collections: [[String!]!]
-  papers: [String!]
-  owners: [String!]
-  members: [String!]
+  posts: [String]
+  collections: [[String]]
+  papers: [String]
+  owners: [String]
+  members: [String]
 }

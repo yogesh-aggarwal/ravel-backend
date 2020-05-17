@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 
 //& Schema
 const Merchandise = new Schema({
-  _id: Schema.Types.ObjectId,
+  _id: {
+    type: Schema.Types.ObjectId,
+    default: mongoose.Types.ObjectId,
+  },
   name: {
     type: String,
     required: true,
@@ -26,36 +29,38 @@ const MerchandiseModel = mongoose.model(
 );
 
 //& Methods
-async function createMerchandise(_parent: any, args: any) {
-  try {
-    args = args.args;
-    args["_id"] = mongoose.Types.ObjectId();
-    const newMerchandise = new MerchandiseModel(args);
-    newMerchandise.save();
-    return true;
-  } catch {
-    return false;
-  }
+async function createMerchandise(_parent: any, { args }: any) {
+  return await MerchandiseModel.create(args)
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
-async function deleteMerchandise(_parent: any, args: any) {
-  try {
-    await MerchandiseModel.deleteOne({ _id: args.args._id });
-    return true;
-  } catch {
-    return false;
-  }
+async function deleteMerchandise(_parent: any, { args }: any) {
+  return await MerchandiseModel.deleteOne({ _id: args._id })
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
-async function updateMerchandise(_parent: any, args: any) {
-  try {
-    const _id = args.args._id;
-    delete args.args._id;
-    await MerchandiseModel.findByIdAndUpdate({ _id: _id }, args.args, () => {});
-    return true;
-  } catch {
-    return false;
-  }
+async function updateMerchandise(_parent: any, { args }: any) {
+  return await MerchandiseModel.findByIdAndUpdate(
+    { _id: args._id },
+    args,
+    () => {}
+  )
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
 module.exports = {

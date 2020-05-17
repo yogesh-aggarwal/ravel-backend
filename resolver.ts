@@ -19,13 +19,13 @@ const {
 import GraphQLJSON from "graphql-type-json";
 
 //& Get tools
-async function getNewRavels(args: any) {
+async function getNewRavels({ args }: any) {
   const newPosts = [
     "5e7f3017e20f723590c45638",
     "5e7f3018e20f723590c45639",
     "5e7f3018e20f723590c4563a",
     "5e7f3019e20f723590c4563b",
-  ]; // TODO: Get them from database of args.args.quantity
+  ]; // TODO: Get them from database of args.quantity
 
   let result = [];
   for (let newPost of newPosts) {
@@ -35,8 +35,8 @@ async function getNewRavels(args: any) {
 }
 
 //& Get (Models) tools
-async function getUserRecommendations(args: any) {
-  const newPosts = ["5ec114893ca0c626345dadc2"]; // TODO: Get them from database of args.args.quantity
+async function getUserRecommendations({ args }: any) {
+  const newPosts = ["5ec114893ca0c626345dadc2"]; // TODO: Get them from database of args.quantity
 
   let result = [];
   for (let newPost of newPosts) {

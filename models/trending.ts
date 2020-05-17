@@ -33,36 +33,38 @@ const Trending = new Schema({
 const TrendingModel = mongoose.model("Trending", Trending, "trending");
 
 //& Methods
-async function createTrending(_parent: any, args: any) {
-  try {
-    args = args.args;
-    args["_id"] = mongoose.Types.ObjectId();
-    const newTrending = new TrendingModel(args);
-    newTrending.save();
-    return true;
-  } catch {
-    return false;
-  }
+async function createTrending(_parent: any, { args }: any) {
+  return await TrendingModel.create(args)
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
-async function deleteTrending(_parent: any, args: any) {
-  try {
-    await TrendingModel.deleteOne({ _id: args.args._id });
-    return true;
-  } catch {
-    return false;
-  }
+async function deleteTrending(_parent: any, { args }: any) {
+  return await TrendingModel.deleteOne({ _id: args._id })
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
-async function updateTrending(_parent: any, args: any) {
-  try {
-    const _id = args.args._id;
-    delete args.args._id;
-    await TrendingModel.findByIdAndUpdate({ _id: _id }, args.args, () => {});
-    return true;
-  } catch {
-    return false;
-  }
+async function updateTrending(_parent: any, { args }: any) {
+  return await TrendingModel.findByIdAndUpdate(
+    { _id: args._id },
+    args,
+    () => {}
+  )
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
 module.exports = {

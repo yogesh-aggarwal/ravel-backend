@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 
 //& Schema
 const Story = new Schema({
-  _id: Schema.Types.ObjectId,
+  _id: {
+    type: Schema.Types.ObjectId,
+    default: mongoose.Types.ObjectId,
+  },
   content: { type: String, required: true },
   stats: {
     views: { type: Number, required: true, default: 0 },
@@ -20,33 +23,34 @@ const Story = new Schema({
 const StoryModel = mongoose.model("Story", Story, "stories");
 
 //& Methods
-async function createStory(_parent: any, args: any) {
-  try {
-    args = args.args;
-    args["_id"] = mongoose.Types.ObjectId();
-    const newStory = new StoryModel(args);
-    newStory.save();
-  } catch {
-    return false;
-  }
+async function createStory(_parent: any, { args }: any) {
+  return await StoryModel.create(args)
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
-async function deleteStory(_parent: any, args: any) {
-  try {
-    await StoryModel.deleteOne({ _id: args.args._id });
-    return true;
-  } catch {
-    return false;
-  }
+async function deleteStory(_parent: any, { args }: any) {
+  return await StoryModel.deleteOne({ _id: args._id })
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
-async function updateStory(_parent: any, args: any) {
-  try {
-    await StoryModel.updateOne({ _id: args.args._id }, args.args, () => {});
-    return true;
-  } catch {
-    return false;
-  }
+async function updateStory(_parent: any, { args }: any) {
+  return await StoryModel.updateOne({ _id: args._id }, args, () => {})
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
 module.exports = {

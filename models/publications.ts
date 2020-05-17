@@ -71,35 +71,38 @@ const PublicationModel = mongoose.model(
 );
 
 //& Methods
-async function createPublication(_parent: any, args: any) {
-  try {
-    args = args.args;
-    const newPublication = new PublicationModel(args);
-    newPublication.save();
-    return true;
-  } catch {
-    return false;
-  }
+async function createPublication(_parent: any, { args }: any) {
+  return await PublicationModel.create(args)
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
-async function deletePublication(_parent: any, args: any) {
-  try {
-    await PublicationModel.deleteOne({ _id: args.args._id });
-    return true;
-  } catch {
-    return false;
-  }
+async function deletePublication(_parent: any, { args }: any) {
+  return await PublicationModel.deleteOne({ _id: args._id })
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
-async function updatePublication(_parent: any, args: any) {
-  try {
-    const _id = args.args._id;
-    delete args.args._id;
-    await PublicationModel.findByIdAndUpdate({ _id: _id }, args.args, () => {});
-    return true;
-  } catch {
-    return false;
-  }
+async function updatePublication(_parent: any, { args }: any) {
+  return await PublicationModel.findByIdAndUpdate(
+    { _id: args._id },
+    args,
+    () => {}
+  )
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
 module.exports = {

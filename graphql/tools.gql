@@ -1,28 +1,28 @@
 input getNewRavelsInp {
-  uid: String!
+  uid: String
   quantity: Int
 }
 
 input getUserRecommendationsInp {
-  uid: String!
+  uid: String
   quantity: Int
 }
 
 input getFeaturedUserInp {
-  _id: String!
+  _id: String
 }
 
 type Trending {
-  _id: String!
-  tags: [String!]!
-  categories: [UserPostsCategories!]!
-  creators: [User!]!
+  _id: String
+  tags: [String]
+  categories: [UserPostsCategories]
+  creators: [User]
 }
 
 type Explore {
-  _id: String!
-  tags: [String!]!
-  publications: [Publication!]!
-  creators: [User!]!
-  posts: [Post]!
+  _id: String
+  tags: [String]
+  publications: [Publication]
+  creators: [User]
+  posts: [Post]
 }

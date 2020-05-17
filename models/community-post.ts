@@ -14,22 +14,34 @@ const CommunityPost = model(
   "community_posts"
 );
 
-async function createPost(_parent: any, args: any) {
-  await CommunityPost.create(args.args, () => {
-    return true;
-  });
+async function createPost(_parent: any, { args }: any) {
+  return await CommunityPost.create(args, () => {})
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
 async function updatePost(_parent: any, { args }: any) {
-  return await CommunityPost.updateOne({ _id: args._id }, args, () => {
-    return true;
-  });
+  return await CommunityPost.updateOne({ _id: args._id }, args, () => {})
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
 async function deletePost(_parent: any, { args }: any) {
-  return await CommunityPost.deleteOne({ _id: args._id }, () => {
-    return true;
-  });
+  return await CommunityPost.deleteOne({ _id: args._id }, () => {})
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
 module.exports = {

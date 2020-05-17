@@ -44,35 +44,34 @@ const Collection = new Schema({
 const CollectionModel = mongoose.model("Collection", Collection, "collections");
 
 //& Methods
-async function createCollection(_parent: any, args: any) {
-  try {
-    args = args.args;
-    const newCollection = new CollectionModel(args);
-    newCollection.save();
-    return true;
-  } catch {
-    return false;
-  }
+async function createCollection(_parent: any, { args }: any) {
+  return await CollectionModel.create(args)
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
-async function deleteCollection(_parent: any, args: any) {
-  try {
-    await CollectionModel.deleteOne({ _id: args.args._id });
-    return true;
-  } catch {
-    return false;
-  }
+async function deleteCollection(_parent: any, { args }: any) {
+  return await CollectionModel.deleteOne({ _id: args._id }, args)
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
-async function updateCollection(_parent: any, args: any) {
-  try {
-    const _id = args.args._id;
-    delete args.args._id;
-    await CollectionModel.findByIdAndUpdate({ _id: _id }, args.args, () => {});
-    return true;
-  } catch {
-    return false;
-  }
+async function updateCollection(_parent: any, { args }: any) {
+  return await CollectionModel.updateOne({ _id: args._id }, args, () => {})
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
 module.exports = {

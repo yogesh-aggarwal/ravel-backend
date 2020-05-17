@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 
 //& Schema
 const Post = new Schema({
-  _id: Schema.Types.ObjectId,
+  _id: {
+    typs: Schema.Types.ObjectId,
+    default: mongoose.Types.ObjectId,
+  },
   title: { type: String, required: true, trim: true, maxlength: 55 },
   description: { type: String, required: true, trim: true, maxlength: 300 },
   content: { type: Schema.Types.Mixed, required: true },
@@ -37,36 +40,35 @@ const Post = new Schema({
 const PostModel = mongoose.model("Post", Post, "posts");
 
 //& Methods
-async function createPost(_parent: any, args: any) {
-  try {
-    args = args.args;
-    args["_id"] = mongoose.Types.ObjectId();
-    const newPost = new PostModel(args);
-    newPost.save();
-    return true;
-  } catch {
-    return false;
-  }
+async function createPost(_parent: any, { args }: any) {
+  args["readTime"] = "21 min"; // TODO: Change it, recieve from front-end (realtime calculations there)
+  return await PostModel.create(args)
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
-async function deletePost(_parent: any, args: any) {
-  try {
-    await PostModel.deleteOne({ _id: args.args._id });
-    return true;
-  } catch {
-    return false;
-  }
+async function deletePost(_parent: any, { args }: any) {
+  return await PostModel.deleteOne({ _id: args._id })
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
-async function updatePost(_parent: any, args: any) {
-  try {
-    const _id = args.args._id;
-    delete args.args._id;
-    await PostModel.findByIdAndUpdate({ _id: _id }, args.args, () => {});
-    return true;
-  } catch {
-    return false;
-  }
+async function updatePost(_parent: any, { args }: any) {
+  return await PostModel.findByIdAndUpdate({ _id: args._id }, args, () => {})
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
 module.exports = {

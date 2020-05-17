@@ -11,37 +11,37 @@
 scalar JSON
 
 type QueryResolver {
-  getPost(args: PostRDInp): Post!
-  getStory(args: StoryRDInp): Story!
-  getMerchandise(args: MerchandiseRDInp): Merchandise!
-  getUser(args: UserRDInp): User!
-  getCommunityPost(args: CommunityPostRDInp): CommunityPost!
-  getPublication(args: getPublicationRDInp): Publication!
-  getCollection(args: getCollectionRDInp): Collection!
+  getPost(args: PostRDInp): Post
+  getStory(args: StoryRDInp): Story
+  getMerchandise(args: MerchandiseRDInp): Merchandise
+  getUser(args: UserRDInp): User
+  getCommunityPost(args: CommunityPostRDInp): CommunityPost
+  getPublication(args: getPublicationRDInp): Publication
+  getCollection(args: getCollectionRDInp): Collection
   # Other tools
-  getNewRavels(args: getNewRavelsInp): [Post]!
-  getUserRecommendations(args: getUserRecommendationsInp): [Post]!
-  getTrending: Trending!
-  getExplore: Explore!
-  getFeaturedUser(args: getFeaturedUserInp): User!
+  getNewRavels(args: getNewRavelsInp): [Post]
+  getUserRecommendations(args: getUserRecommendationsInp): [Post]
+  getTrending: Trending
+  getExplore: Explore
+  getFeaturedUser(args: getFeaturedUserInp): User
 }
 
 type MutationResolver {
   # Post
-  deletePost(args: PostRDInp): Boolean!
-  createPost(args: PostCreateInp): Boolean!
-  updatePost(args: PostUpdateInp): Boolean!
+  deletePost(args: PostRDInp): Boolean
+  createPost(args: PostCreateInp): Boolean
+  updatePost(args: PostUpdateInp): Boolean
   # Story
-  deleteStory(args: StoryRDInp): Boolean!
-  createStory(args: StoryCreateInp): Boolean!
+  deleteStory(args: StoryRDInp): Boolean
+  createStory(args: StoryCreateInp): Boolean
   # Merchandise
-  deleteMerchandise(args: MerchandiseRDInp): Boolean!
-  createMerchandise(args: MerchandiseCreateInp): Boolean!
-  updateMerchandise(args: MerchandiseUpdateInp): Boolean!
+  deleteMerchandise(args: MerchandiseRDInp): Boolean
+  createMerchandise(args: MerchandiseCreateInp): Boolean
+  updateMerchandise(args: MerchandiseUpdateInp): Boolean
   # User
-  deleteUser(args: UserRDInp): Boolean!
-  createUser(args: UserCreateInp): Boolean!
-  updateUser(args: UserUpdateInp): Boolean!
+  deleteUser(args: UserRDInp): Boolean
+  createUser(args: UserCreateInp): Boolean
+  updateUser(args: UserUpdateInp): Boolean
 }
 
 schema {

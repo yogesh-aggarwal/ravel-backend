@@ -1,53 +1,53 @@
 type Post {
-  _id: String!
-  title: String!
-  description: String!
-  content: JSON!
-  thumbnail: String!
-  readTime: String!
-  comments: [String!]!
-  tags: [String!]!
-  stats: PostStats!
-  credit: PostCredit!
-  datePublished: String!
-  dateUpdated: String!
+  _id: String
+  title: String
+  description: String
+  content: JSON
+  thumbnail: String
+  readTime: String
+  comments: [String]
+  tags: [String]
+  stats: PostStats
+  credit: PostCredit
+  datePublished: String
+  dateUpdated: String
 }
 
 type PostStats {
-  views: Int!
-  likes: Int!
-  appreciations: Int!
-  applauds: Int!
+  views: Int
+  likes: Int
+  appreciations: Int
+  applauds: Int
 }
 
 type PostCredit {
-  author: User!
-  publication: Publication!
+  author: User
+  publication: Publication
 }
 
 input PostCreditInp {
-  author: String!
+  author: String
   publication: String
 }
 
 input PostRDInp {
-  _id: String!
+  _id: String
 }
 
 input PostCreateInp {
-  title: String!
-  description: String!
-  content: JSON!
-  thumbnail: String!
-  credit: PostCreditInp!
-  tags: [String!]!
+  title: String
+  description: String
+  content: JSON
+  thumbnail: String
+  credit: PostCreditInp
+  tags: [String]
 }
 
 input PostUpdateInp {
-  _id: String!
+  _id: String
   title: String
   description: String
-  content: JSON!
+  content: JSON
   thumbnail: String
   credit: PostCreditInp
   tags: [String]

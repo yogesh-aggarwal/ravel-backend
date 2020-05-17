@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 
 //& Schema
 const User = new Schema({
-  _id: Schema.Types.ObjectId,
+  _id: {
+    type: Schema.Types.ObjectId,
+    default: mongoose.Types.ObjectId,
+  },
   history: { type: [String], required: true },
   saved: { type: [String], required: true },
   data: {
@@ -138,37 +141,34 @@ const User = new Schema({
 const UserModel = mongoose.model("User", User, "users");
 
 //& Methods
-async function createUser(_parent: any, args: any) {
-  try {
-    const newUser = new UserModel({
-      _id: mongoose.Types.ObjectId(),
-      data: args.args,
+async function createUser(_parent: any, { args }: any) {
+  return await UserModel.create(args)
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
     });
-    newUser.save();
-    return true;
-  } catch {
-    return false;
-  }
 }
 
-async function deleteUser(_parent: any, args: any) {
-  try {
-    await UserModel.deleteOne({ _id: args.args._id });
-    return true;
-  } catch {
-    return false;
-  }
+async function deleteUser(_parent: any, { args }: any) {
+  return await UserModel.deleteOne({ _id: args._id })
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
-async function updateUser(_parent: any, args: any) {
-  try {
-    const _id = args.args._id;
-    delete args.args._id;
-    await UserModel.findOneAndUpdate({ _id: _id }, args.args);
-    return true;
-  } catch {
-    return false;
-  }
+async function updateUser(_parent: any, { args }: any) {
+  return await UserModel.findOneAndUpdate({ _id: args._id }, args)
+    .then(() => {
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 }
 
 module.exports = {

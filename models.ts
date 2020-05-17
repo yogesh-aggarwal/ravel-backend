@@ -19,16 +19,21 @@ Trending
 // Users
 */
 
-export async function getMerchandise(_parent: any, args: any) {
-  return (await Merchandise.model.findById(args.args._id)).toObject();
+export async function getMerchandise(_parent: any, { args }: any) {
+  return (await Merchandise.model.findById(args._id)).toObject();
 }
 
 export async function getPost(
   _parent: any,
-  args: any,
+  { args }: any,
   collectionFromUserModel: boolean = true
 ) {
-  let post = (await Post.model.findById(args.args._id)).toObject();
+  // console.log(args);
+  // console.log(Post.model);
+  let post = await Post.model.findOne({ _id: args._id });
+  console.log(post);
+  return post;
+  post.toObject();
   post.credit.publication = await Publication.model.findById(
     post.credit.publication
   );
@@ -43,10 +48,8 @@ export async function getPost(
   return post;
 }
 
-export async function getPublication(_parent: any, args: any) {
-  const publication = (
-    await Publication.model.findById(args.args._id)
-  ).toObject();
+export async function getPublication(_parent: any, { args }: any) {
+  const publication = (await Publication.model.findById(args._id)).toObject();
 
   //& Parse: "publication.categories"
   let collections = [];
@@ -95,10 +98,10 @@ export async function getPublication(_parent: any, args: any) {
 
 export async function getUser(
   _parent: any,
-  args: any,
+  { args }: any,
   { collection = true, community = true }
 ) {
-  const user = (await User.model.findById({ _id: args.args._id })).toObject();
+  const user = (await User.model.findById({ _id: args._id })).toObject();
   const userPosts = user.data.posts;
 
   //& Parse: "posts.posts"
@@ -186,9 +189,9 @@ export async function getUser(
   return user;
 }
 
-export async function getCollection(_parent: any, args: any) {
+export async function getCollection(_parent: any, { args }: any) {
   const collection = (
-    await Collection.model.findById({ _id: args.args._id })
+    await Collection.model.findById({ _id: args._id })
   ).toObject();
   const collectionPosts = collection.posts;
 
@@ -220,4 +223,4 @@ export async function getCommunityPost(
   return communityPost;
 }
 
-export async function getStory(_parent: any, args: any) {}
+export async function getStory(_parent: any, { args }: any) {}

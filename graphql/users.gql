@@ -1,79 +1,79 @@
 type User {
-  _id: String!
-  history: [String!]!
-  saved: [String!]!
-  data: UserData!
+  _id: String
+  history: [String]
+  saved: [String]
+  data: UserData
 }
 
 type UserData {
-  uname: String!
-  pword: String!
-  email: String!
-  gender: String!
-  coverImg: String!
-  profileImg: String!
-  name: String!
-  bio: String!
-  isSuspended: Boolean!
-  socialLinks: [String!]!
-  collections: [Collection!]!
-  memberOf: [Publication!]!
-  posts: UserPosts!
-  community: [CommunityPost!]!
-  stories: [Story]!
-  followers: [User]!
-  following: [User]!
-  stats: UserStats!
-  merchandise: [Merchandise]!
+  uname: String
+  pword: String
+  email: String
+  gender: String
+  coverImg: String
+  profileImg: String
+  name: String
+  bio: String
+  isSuspended: Boolean
+  socialLinks: [String]
+  collections: [Collection]
+  memberOf: [Publication]
+  posts: UserPosts
+  community: [CommunityPost]
+  stories: [Story]
+  followers: [User]
+  following: [User]
+  stats: UserStats
+  merchandise: [Merchandise]
 }
 
 type UserStats {
-  reach: Int!
-  appreciations: Int!
+  reach: Int
+  appreciations: Int
 }
 
 type UserPosts {
-  categories: [UserPostsCategories!]!
-  posts: [Post!]!
-  featuredPosts: [Post!]!
+  categories: [UserPostsCategories]
+  posts: [Post]
+  featuredPosts: [Post]
 }
 
 type UserPostsCategories {
-  name: String!
-  posts: [Post!]!
+  name: String
+  posts: [Post]
 }
 
 input UserRDInp {
-  _id: String!
+  _id: String
 }
 
 input UserCreateInp {
-  uname: String!
-  name: String!
-  pword: String!
-  email: String!
-  gender: String!
+  uname: String
+  name: String
+  pword: String
+  email: String
+  gender: String
   coverImg: String
   profileImg: String
   bio: String
-  socialLinks: [String!]
+  socialLinks: [String]
 }
 
 input UserUpdateInp {
-  _id: String!
-  history: [String!]!
-  saved: [String!]!
-  data: UserDataInp!
+  _id: String
+  history: [String]
+  saved: [String]
+  data: UserDataInp
 }
 
 input UserDataInp {
-  uname: String!
-  pword: String!
-  email: String!
-  gender: String!
-  coverImg: String!
-  profileImg: String!
-  name: String!
-  bio: String!
-  socialLinks: [String!]!
+  uname: String
+  pword: String
+  email: String
+  gender: String
+  coverImg: String
+  profileImg: String
+  name: String
+  bio: String
+  socialLinks: [String]
 }
