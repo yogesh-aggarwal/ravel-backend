@@ -1,13 +1,37 @@
-//& Imports
-const {
-  Post,
-  User,
-  Trending,
-  Explore,
-  Publication,
-  Merchandise,
-  Story,
+//& Models
+import { createPost, updatePost, deletePost } from "./models/posts";
+import {
+  createCollection,
+  updateCollection,
+  deleteCollection,
+} from "./models/collections";
+import {
+  createMerchandise,
+  updateMerchandise,
+  deleteMerchandise,
+} from "./models/merchandises";
+import {
+  createCommunityPost,
+  updateCommunityPost,
+  deleteCommunityPost,
+} from "./models/community-post";
+import { createUser, updateUser, deleteUser } from "./models/users";
+import {
+  TrendingModel,
+  createTrending,
+  updateTrending,
+  deleteTrending,
+} from "./models/trending";
+import { createStory, updateStory, deleteStory } from "./models/story";
+import { ExploreModel } from "./models/explore";
+import {
+  createPublication,
+  updatePublication,
+  deletePublication,
+} from "./models/publications";
 
+//& Imports
+import {
   getPost,
   getCollection,
   getUser,
@@ -15,7 +39,7 @@ const {
   getPublication,
   getMerchandise,
   getStory,
-} = require("./models");
+} from "./models";
 import GraphQLJSON from "graphql-type-json";
 
 //& Get tools
@@ -54,7 +78,7 @@ async function getFeaturedUser(args: any) {
 
 async function getTrending() {
   let trending = (
-    await Trending.model.find().limit(1).sort({ $natural: -1 })
+    await TrendingModel.find().limit(1).sort({ $natural: -1 })
   )[0].toObject();
 
   //& Parse: "trending.categories"
@@ -83,7 +107,7 @@ async function getTrending() {
 
 async function getExplore() {
   let explore = (
-    await Explore.model.find().limit(1).sort({ $natural: -1 })
+    await ExploreModel.find().limit(1).sort({ $natural: -1 })
   )[0].toObject();
 
   //& Parse: "Explore.publications"
@@ -112,7 +136,7 @@ async function getExplore() {
   return explore;
 }
 
-module.exports = {
+export default {
   JSON: GraphQLJSON,
   QueryResolver: {
     getPost: getPost,
@@ -131,19 +155,19 @@ module.exports = {
   },
   MutationResolver: {
     // Post
-    deletePost: Post.deletePost,
-    createPost: Post.createPost,
-    updatePost: Post.updatePost,
+    deletePost: deletePost,
+    createPost: createPost,
+    updatePost: updatePost,
     // Story
-    deleteStory: Story.deleteStory,
-    createStory: Story.createStory,
+    createStory: createStory,
+    deleteStory: deleteStory,
     // Merchandise
-    deleteMerchandise: Merchandise.deleteMerchandise,
-    createMerchandise: Merchandise.createMerchandise,
-    updateMerchandise: Merchandise.updateMerchandise,
+    deleteMerchandise: deleteMerchandise,
+    createMerchandise: createMerchandise,
+    updateMerchandise: updateMerchandise,
     // User
-    deleteUser: User.deleteUser,
-    createUser: User.createUser,
-    updateUser: User.updateUser,
+    deleteUser: deleteUser,
+    createUser: createUser,
+    updateUser: updateUser,
   },
 };

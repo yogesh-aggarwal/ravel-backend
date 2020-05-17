@@ -41,10 +41,10 @@ const Collection = new Schema({
 });
 
 //& Model
-const CollectionModel = mongoose.model("Collection", Collection, "collections");
+export const CollectionModel = mongoose.model("Collection", Collection, "collections");
 
 //& Methods
-async function createCollection(_parent: any, { args }: any) {
+export async function createCollection(_parent: any, { args }: any) {
   return await CollectionModel.create(args)
     .then(() => {
       return true;
@@ -54,7 +54,7 @@ async function createCollection(_parent: any, { args }: any) {
     });
 }
 
-async function deleteCollection(_parent: any, { args }: any) {
+export async function deleteCollection(_parent: any, { args }: any) {
   return await CollectionModel.deleteOne({ _id: args._id }, args)
     .then(() => {
       return true;
@@ -64,7 +64,7 @@ async function deleteCollection(_parent: any, { args }: any) {
     });
 }
 
-async function updateCollection(_parent: any, { args }: any) {
+export async function updateCollection(_parent: any, { args }: any) {
   return await CollectionModel.updateOne({ _id: args._id }, args, () => {})
     .then(() => {
       return true;
@@ -73,10 +73,3 @@ async function updateCollection(_parent: any, { args }: any) {
       return false;
     });
 }
-
-module.exports = {
-  model: CollectionModel,
-  createCollection: createCollection,
-  deleteCollection: deleteCollection,
-  updateCollection: updateCollection,
-};

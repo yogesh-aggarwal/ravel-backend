@@ -8,14 +8,14 @@ const CommunityPostSchema = new Schema({
   },
 });
 
-const CommunityPost = model(
+export const CommunityPostModel = model(
   "CommunityPost",
   CommunityPostSchema,
   "community_posts"
 );
 
-async function createPost(_parent: any, { args }: any) {
-  return await CommunityPost.create(args, () => {})
+export async function createCommunityPost(_parent: any, { args }: any) {
+  return await CommunityPostModel.create(args, () => {})
     .then(() => {
       return true;
     })
@@ -24,8 +24,8 @@ async function createPost(_parent: any, { args }: any) {
     });
 }
 
-async function updatePost(_parent: any, { args }: any) {
-  return await CommunityPost.updateOne({ _id: args._id }, args, () => {})
+export async function updateCommunityPost(_parent: any, { args }: any) {
+  return await CommunityPostModel.updateOne({ _id: args._id }, args, () => {})
     .then(() => {
       return true;
     })
@@ -34,8 +34,8 @@ async function updatePost(_parent: any, { args }: any) {
     });
 }
 
-async function deletePost(_parent: any, { args }: any) {
-  return await CommunityPost.deleteOne({ _id: args._id }, () => {})
+export async function deleteCommunityPost(_parent: any, { args }: any) {
+  return await CommunityPostModel.deleteOne({ _id: args._id }, () => {})
     .then(() => {
       return true;
     })
@@ -43,10 +43,3 @@ async function deletePost(_parent: any, { args }: any) {
       return false;
     });
 }
-
-module.exports = {
-  model: CommunityPost,
-  createPost: createPost,
-  updatePost: updatePost,
-  deletePost: deletePost,
-};

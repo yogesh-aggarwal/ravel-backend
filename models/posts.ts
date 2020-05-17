@@ -37,10 +37,10 @@ const Post = new Schema({
 });
 
 //& Model
-const PostModel = mongoose.model("Post", Post, "posts");
+export const PostModel = mongoose.model("Post", Post, "posts");
 
 //& Methods
-async function createPost(_parent: any, { args }: any) {
+export async function createPost(_parent: any, { args }: any) {
   args["readTime"] = "21 min"; // TODO: Change it, recieve from front-end (realtime calculations there)
   return await PostModel.create(args)
     .then(() => {
@@ -51,7 +51,7 @@ async function createPost(_parent: any, { args }: any) {
     });
 }
 
-async function deletePost(_parent: any, { args }: any) {
+export async function deletePost(_parent: any, { args }: any) {
   return await PostModel.deleteOne({ _id: args._id })
     .then(() => {
       return true;
@@ -61,7 +61,7 @@ async function deletePost(_parent: any, { args }: any) {
     });
 }
 
-async function updatePost(_parent: any, { args }: any) {
+export async function updatePost(_parent: any, { args }: any) {
   return await PostModel.findByIdAndUpdate({ _id: args._id }, args, () => {})
     .then(() => {
       return true;
@@ -70,10 +70,3 @@ async function updatePost(_parent: any, { args }: any) {
       return false;
     });
 }
-
-module.exports = {
-  model: PostModel,
-  createPost: createPost,
-  deletePost: deletePost,
-  updatePost: updatePost,
-};

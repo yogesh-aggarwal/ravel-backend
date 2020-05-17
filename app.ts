@@ -1,23 +1,22 @@
-const { gql, ApolloServer } = require("apollo-server");
-const { importSchema } = require("graphql-import");
+import { gql, ApolloServer } from "apollo-server";
+import { importSchema } from "graphql-import";
 
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import resolvers from "./resolver";
+
+require("dotenv").config(); // Configure env variables
 
 const typeDefs = gql(importSchema("./graphql/schema.gql"));
-const resolvers = require("./resolver");
-
-require("dotenv").config(); // Configuring env variables
-
 mongoose
-  .connect(process.env.DBURL, {
+  .connect(process.env.DBURL as string, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
     const server = new ApolloServer({ typeDefs, resolvers });
-    server.listen({ port: 44800 }).then((info: { port: number }) => {
+    server.listen({ port: 44800 }).then(({ port }: any) => {
       console.log(
-        `🚀 Server is up and running at http://localhost:${info.port}`
+        `🚀 Server is up and running at http://localhost:${port}`
       );
     });
   });

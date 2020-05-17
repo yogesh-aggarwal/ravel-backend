@@ -64,14 +64,14 @@ const Publication = new Schema({
 });
 
 //& Model
-const PublicationModel = mongoose.model(
+export const PublicationModel = mongoose.model(
   "Publication",
   Publication,
   "publications"
 );
 
 //& Methods
-async function createPublication(_parent: any, { args }: any) {
+export async function createPublication(_parent: any, { args }: any) {
   return await PublicationModel.create(args)
     .then(() => {
       return true;
@@ -81,7 +81,7 @@ async function createPublication(_parent: any, { args }: any) {
     });
 }
 
-async function deletePublication(_parent: any, { args }: any) {
+export async function deletePublication(_parent: any, { args }: any) {
   return await PublicationModel.deleteOne({ _id: args._id })
     .then(() => {
       return true;
@@ -91,7 +91,7 @@ async function deletePublication(_parent: any, { args }: any) {
     });
 }
 
-async function updatePublication(_parent: any, { args }: any) {
+export async function updatePublication(_parent: any, { args }: any) {
   return await PublicationModel.findByIdAndUpdate(
     { _id: args._id },
     args,
@@ -104,10 +104,3 @@ async function updatePublication(_parent: any, { args }: any) {
       return false;
     });
 }
-
-module.exports = {
-  model: PublicationModel,
-  createPublication: createPublication,
-  deletePublication: deletePublication,
-  updatePublication: updatePublication,
-};

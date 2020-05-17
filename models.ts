@@ -1,12 +1,12 @@
-export const Post = require("./models/posts");
-export const Collection = require("./models/collections");
-export const Merchandise = require("./models/merchandises");
-export const CommunityPost = require("./models/community-post");
-export const User = require("./models/users");
-export const Trending = require("./models/trending");
-export const Story = require("./models/story");
-export const Explore = require("./models/explore");
-export const Publication = require("./models/publications");
+import { PostModel } from "./models/posts";
+import { CollectionModel } from "./models/collections";
+import { MerchandiseModel } from "./models/merchandises";
+import { CommunityPostModel } from "./models/community-post";
+import { UserModel } from "./models/users";
+import { TrendingModel } from "./models/trending";
+import { StoryModel } from "./models/story";
+import { ExploreModel } from "./models/explore";
+import { PublicationModel } from "./models/publications";
 
 //? "Get" functions are seperated because every model requires to retrieve data from another model (To prevent circular imports).
 /*
@@ -18,9 +18,8 @@ Explore
 Trending
 // Users
 */
-
 export async function getMerchandise(_parent: any, { args }: any) {
-  return (await Merchandise.model.findById(args._id)).toObject();
+  return (await MerchandiseModel.findById(args._id))?.toObject();
 }
 
 export async function getPost(
@@ -29,34 +28,34 @@ export async function getPost(
   collectionFromUserModel: boolean = true
 ) {
   // console.log(args);
-  // console.log(Post.model);
-  let post = await Post.model.findOne({ _id: args._id });
+  // console.log(PostModel);
+  let post = await PostModel.findOne({ _id: args._id });
   console.log(post);
   return post;
-  post.toObject();
-  post.credit.publication = await Publication.model.findById(
-    post.credit.publication
-  );
-  post.credit.author = await getUser(
-    null,
-    {
-      args: { _id: post.credit.author },
-    },
-    { collection: collectionFromUserModel }
-  );
+  // post?.toObject();
+  // post.credit.publication = await PublicationModel.findById(
+  //   post.credit.publication
+  // );
+  // post.credit.author = await getUser(
+  //   null,
+  //   {
+  //     args: { _id: post.credit.author },
+  //   },
+  //   { collection: collectionFromUserModel }
+  // );
 
-  return post;
+  // return post;
 }
 
 export async function getPublication(_parent: any, { args }: any) {
-  const publication = (await Publication.model.findById(args._id)).toObject();
+  const publication = (await PublicationModel.findById(args._id))?.toObject();
 
   //& Parse: "publication.categories"
   let collections = [];
   for (let category of publication.collections) {
     let categoryPosts = [];
     for (let post of category.posts) {
-      categoryPosts.push(await Post.model.findById(post));
+      categoryPosts.push(await PostModel.findById(post));
     }
     collections.push({
       name: category.name,
@@ -68,7 +67,7 @@ export async function getPublication(_parent: any, { args }: any) {
   //& Parse: "publication.publication"
   let publications = [];
   for (let post of publication.publications) {
-    publications.push(await Post.model.findById(post));
+    publications.push(await PostModel.findById(post));
   }
   publication.publications = publications;
 
@@ -101,20 +100,20 @@ export async function getUser(
   { args }: any,
   { collection = true, community = true }
 ) {
-  const user = (await User.model.findById({ _id: args._id })).toObject();
+  const user = (await UserModel.findById({ _id: args._id }))?.toObject();
   const userPosts = user.data.posts;
 
   //& Parse: "posts.posts"
   let posts = [];
   for (let post of userPosts.posts) {
-    posts.push(await Post.model.findById(post));
+    posts.push(await PostModel.findById(post));
   }
   user.data.posts.posts = posts;
 
   //& Parse: "posts.featuredPosts"
   let featuredPosts = [];
   for (let featuredPost of userPosts.featuredPosts) {
-    featuredPosts.push(await Post.model.findById(featuredPost));
+    featuredPosts.push(await PostModel.findById(featuredPost));
   }
   user.data.posts.featuredPosts = featuredPosts;
 
@@ -123,7 +122,7 @@ export async function getUser(
   for (let category of userPosts.categories) {
     let categoryPosts = [];
     for (let post of category.posts) {
-      categoryPosts.push(await Post.model.findById(post));
+      categoryPosts.push(await PostModel.findById(post));
     }
     categories.push({ name: category.name, posts: categoryPosts });
   }
@@ -156,34 +155,34 @@ export async function getUser(
   //& Parse: "memberOf"
   let memberOf = [];
   for (let member of user.data.memberOf) {
-    memberOf.push(await Publication.model.findById(member));
+    memberOf.push(await PublicationModel.findById(member));
   }
   user.data.memberOf = memberOf;
 
   //& Parse: "story"
   let stories = [];
   for (let story of user.data.stories) {
-    stories.push(await Story.model.findById(story));
+    stories.push(await StoryModel.findById(story));
   }
   user.data.stories = stories;
 
   //& Parse: "followers"
   let followers = [];
   for (let follower of user.data.followers) {
-    followers.push(await User.model.findById(follower));
+    followers.push(await UserModel.findById(follower));
   }
   user.data.followers = followers;
   //& Parse: "followings"
   let followings = [];
   for (let following of user.data.following) {
-    followings.push(await User.model.findById(following));
+    followings.push(await UserModel.findById(following));
   }
   user.data.following = followings;
 
   //& Parse: "merchandise"
   let merchandises = [];
   for (let merchandise of user.data.merchandise) {
-    merchandises.push(await User.model.findById(merchandise));
+    merchandises.push(await UserModel.findById(merchandise));
   }
   user.data.merchandise = merchandises;
   return user;
@@ -191,8 +190,8 @@ export async function getUser(
 
 export async function getCollection(_parent: any, { args }: any) {
   const collection = (
-    await Collection.model.findById({ _id: args._id })
-  ).toObject();
+    await CollectionModel.findById({ _id: args._id })
+  )?.toObject();
   const collectionPosts = collection.posts;
 
   //& Parse: "posts"
@@ -212,8 +211,8 @@ export async function getCommunityPost(
   { user = true }
 ) {
   const communityPost = (
-    await CommunityPost.model.findById(args._id)
-  ).toObject();
+    await CommunityPostModel.findById(args._id)
+  )?.toObject();
   if (user)
     communityPost.owner = getUser(
       null,

@@ -28,10 +28,10 @@ const Explore = new Schema({
 });
 
 //& Model
-const ExploreModel = mongoose.model("Explore", Explore, "explore");
+export const ExploreModel = mongoose.model("Explore", Explore, "explore");
 
 //& Methods
-async function createExplore(_parent: any, { args }: any) {
+export async function createExplore(_parent: any, { args }: any) {
   return await ExploreModel.create(args)
     .then(() => {
       return true;
@@ -41,7 +41,7 @@ async function createExplore(_parent: any, { args }: any) {
     });
 }
 
-async function deleteExplore(_parent: any, { args }: any) {
+export async function deleteExplore(_parent: any, { args }: any) {
   return await ExploreModel.deleteOne({ _id: args._id })
     .then(() => {
       return true;
@@ -51,7 +51,7 @@ async function deleteExplore(_parent: any, { args }: any) {
     });
 }
 
-async function updateExplore(_parent: any, { args }: any) {
+export async function updateExplore(_parent: any, { args }: any) {
   return await ExploreModel.updateOne({ _id: args._id }, args, () => {})
     .then(() => {
       return true;
@@ -60,10 +60,3 @@ async function updateExplore(_parent: any, { args }: any) {
       return false;
     });
 }
-
-module.exports = {
-  model: ExploreModel,
-  createExplore: createExplore,
-  deleteExplore: deleteExplore,
-  updateExplore: updateExplore,
-};

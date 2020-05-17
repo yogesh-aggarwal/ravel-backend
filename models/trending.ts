@@ -30,10 +30,10 @@ const Trending = new Schema({
 });
 
 //& Model
-const TrendingModel = mongoose.model("Trending", Trending, "trending");
+export const TrendingModel = mongoose.model("Trending", Trending, "trending");
 
 //& Methods
-async function createTrending(_parent: any, { args }: any) {
+export async function createTrending(_parent: any, { args }: any) {
   return await TrendingModel.create(args)
     .then(() => {
       return true;
@@ -43,7 +43,7 @@ async function createTrending(_parent: any, { args }: any) {
     });
 }
 
-async function deleteTrending(_parent: any, { args }: any) {
+export async function deleteTrending(_parent: any, { args }: any) {
   return await TrendingModel.deleteOne({ _id: args._id })
     .then(() => {
       return true;
@@ -53,7 +53,7 @@ async function deleteTrending(_parent: any, { args }: any) {
     });
 }
 
-async function updateTrending(_parent: any, { args }: any) {
+export async function updateTrending(_parent: any, { args }: any) {
   return await TrendingModel.findByIdAndUpdate(
     { _id: args._id },
     args,
@@ -66,10 +66,3 @@ async function updateTrending(_parent: any, { args }: any) {
       return false;
     });
 }
-
-module.exports = {
-  model: TrendingModel,
-  createTrending: createTrending,
-  deleteTrending: deleteTrending,
-  updateTrending: updateTrending,
-};

@@ -20,10 +20,10 @@ const Story = new Schema({
 });
 
 //& Model
-const StoryModel = mongoose.model("Story", Story, "stories");
+export const StoryModel = mongoose.model("Story", Story, "stories");
 
 //& Methods
-async function createStory(_parent: any, { args }: any) {
+export async function createStory(_parent: any, { args }: any) {
   return await StoryModel.create(args)
     .then(() => {
       return true;
@@ -33,7 +33,7 @@ async function createStory(_parent: any, { args }: any) {
     });
 }
 
-async function deleteStory(_parent: any, { args }: any) {
+export async function deleteStory(_parent: any, { args }: any) {
   return await StoryModel.deleteOne({ _id: args._id })
     .then(() => {
       return true;
@@ -42,20 +42,3 @@ async function deleteStory(_parent: any, { args }: any) {
       return false;
     });
 }
-
-async function updateStory(_parent: any, { args }: any) {
-  return await StoryModel.updateOne({ _id: args._id }, args, () => {})
-    .then(() => {
-      return true;
-    })
-    .catch(() => {
-      return false;
-    });
-}
-
-module.exports = {
-  model: StoryModel,
-  createStory: createStory,
-  deleteStory: deleteStory,
-  updateStory: updateStory,
-};

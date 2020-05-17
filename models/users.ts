@@ -138,10 +138,10 @@ const User = new Schema({
 });
 
 //& Model
-const UserModel = mongoose.model("User", User, "users");
+export const UserModel = mongoose.model("User", User, "users");
 
 //& Methods
-async function createUser(_parent: any, { args }: any) {
+export async function createUser(_parent: any, { args }: any) {
   return await UserModel.create(args)
     .then(() => {
       return true;
@@ -151,7 +151,7 @@ async function createUser(_parent: any, { args }: any) {
     });
 }
 
-async function deleteUser(_parent: any, { args }: any) {
+export async function deleteUser(_parent: any, { args }: any) {
   return await UserModel.deleteOne({ _id: args._id })
     .then(() => {
       return true;
@@ -161,7 +161,7 @@ async function deleteUser(_parent: any, { args }: any) {
     });
 }
 
-async function updateUser(_parent: any, { args }: any) {
+export async function updateUser(_parent: any, { args }: any) {
   return await UserModel.findOneAndUpdate({ _id: args._id }, args)
     .then(() => {
       return true;
@@ -170,10 +170,3 @@ async function updateUser(_parent: any, { args }: any) {
       return false;
     });
 }
-
-module.exports = {
-  model: UserModel,
-  createUser: createUser,
-  deleteUser: deleteUser,
-  updateUser: updateUser,
-};

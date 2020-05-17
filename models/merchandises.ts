@@ -22,14 +22,14 @@ const Merchandise = new Schema({
 });
 
 //& Model
-const MerchandiseModel = mongoose.model(
+export const MerchandiseModel = mongoose.model(
   "Merchandise",
   Merchandise,
   "merchandises"
 );
 
 //& Methods
-async function createMerchandise(_parent: any, { args }: any) {
+export async function createMerchandise(_parent: any, { args }: any) {
   return await MerchandiseModel.create(args)
     .then(() => {
       return true;
@@ -39,7 +39,7 @@ async function createMerchandise(_parent: any, { args }: any) {
     });
 }
 
-async function deleteMerchandise(_parent: any, { args }: any) {
+export async function deleteMerchandise(_parent: any, { args }: any) {
   return await MerchandiseModel.deleteOne({ _id: args._id })
     .then(() => {
       return true;
@@ -49,7 +49,7 @@ async function deleteMerchandise(_parent: any, { args }: any) {
     });
 }
 
-async function updateMerchandise(_parent: any, { args }: any) {
+export async function updateMerchandise(_parent: any, { args }: any) {
   return await MerchandiseModel.findByIdAndUpdate(
     { _id: args._id },
     args,
@@ -62,10 +62,3 @@ async function updateMerchandise(_parent: any, { args }: any) {
       return false;
     });
 }
-
-module.exports = {
-  model: MerchandiseModel,
-  createMerchandise: createMerchandise,
-  deleteMerchandise: deleteMerchandise,
-  updateMerchandise: updateMerchandise,
-};
