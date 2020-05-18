@@ -1,12 +1,10 @@
-import mongoose from "mongoose";
-
-const Schema = mongoose.Schema;
+import { Schema, Types, model } from "mongoose";
 
 //& Schema
 const Story = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId,
+    default: Types.ObjectId,
   },
   content: { type: String, required: true },
   stats: {
@@ -20,7 +18,7 @@ const Story = new Schema({
 });
 
 //& Model
-export const StoryModel = mongoose.model("Story", Story, "stories");
+export const StoryModel = model("Story", Story, "stories");
 
 //& Methods
 export async function createStory(_parent: any, { args }: any) {
@@ -34,7 +32,7 @@ export async function createStory(_parent: any, { args }: any) {
 }
 
 export async function deleteStory(_parent: any, { args }: any) {
-  return await StoryModel.deleteOne({ _id: args._id })
+  return await StoryModel.deleteOne({ _id: Types.ObjectId(args._id) })
     .then(() => {
       return true;
     })

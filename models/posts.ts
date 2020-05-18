@@ -1,13 +1,12 @@
-import mongoose from "mongoose";
-import { UserModel } from "./users";
-
-const Schema = mongoose.Schema;
+import { Schema, Types, model } from "mongoose";
+import { UserModel, getUser } from "./users";
+import { PublicationModel } from "./publications";
 
 //& Schema
 const Post = new Schema({
   _id: {
     typs: Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId,
+    default: Types.ObjectId,
   },
   title: { type: String, required: true, trim: true, maxlength: 55 },
   description: { type: String, required: true, trim: true, maxlength: 300 },
@@ -38,7 +37,7 @@ const Post = new Schema({
 });
 
 //& Model
-export const PostModel = mongoose.model("Post", Post, "posts");
+export const PostModel = model("Post", Post, "posts");
 
 //& Methods
 export async function createPost(_parent: any, { args }: any) {
@@ -53,7 +52,7 @@ export async function createPost(_parent: any, { args }: any) {
 }
 
 export async function deletePost(_parent: any, { args }: any) {
-  return await PostModel.deleteOne({ _id: args._id })
+  return await PostModel.deleteOne({ _id: Types.ObjectId(args._id) })
     .then(() => {
       return true;
     })
@@ -63,7 +62,11 @@ export async function deletePost(_parent: any, { args }: any) {
 }
 
 export async function updatePost(_parent: any, { args }: any) {
-  return await PostModel.findByIdAndUpdate({ _id: args._id }, args, () => {})
+  return await PostModel.updateOne(
+    { _id: Types.ObjectId(args._id) },
+    args,
+    () => {}
+  )
     .then(() => {
       return true;
     })
@@ -78,21 +81,20 @@ export async function getPost(
   collectionFromUserModel: boolean = true
 ) {
   // console.log(args);
-  // console.log(PostModel);
-  let post = await PostModel.findOne({ _id: args._id });
-  console.log(post);
-  return post;
-  // post?.toObject();
-  // post.credit.publication = await PublicationModel.findById(
-  //   post.credit.publication
-  // );
-  // post.credit.author = await getUser(
-  //   null,
-  //   {
-  //     args: { _id: post.credit.author },
-  //   },
-  //   { collection: collectionFromUserModel }
-  // );
+  let post = (
+    await PostModel.findOne({ _id: Types.ObjectId(args._id) })
+  )?.toObject();
 
-  // return post;
+  post.credit.publication = await PublicationModel.findOne({
+    _id: Types.ObjectId(post.credit.publication),
+  });
+  post.credit.author = await getUser(
+    null,
+    {
+      args: { _id: post.credit.author },
+    },
+    { collection: collectionFromUserModel }
+  );
+
+  return post;
 }

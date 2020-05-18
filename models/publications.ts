@@ -1,14 +1,12 @@
-import mongoose from "mongoose";
-import { PostModel } from './posts';
-import { getUser } from './users';
-
-const Schema = mongoose.Schema;
+import { Schema, Types, model } from "mongoose";
+import { PostModel } from "./posts";
+import { getUser } from "./users";
 
 //& Schema
 const Publication = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId,
+    default: Types.ObjectId,
   },
   name: {
     type: String,
@@ -66,7 +64,7 @@ const Publication = new Schema({
 });
 
 //& Model
-export const PublicationModel = mongoose.model(
+export const PublicationModel = model(
   "Publication",
   Publication,
   "publications"
@@ -84,7 +82,7 @@ export async function createPublication(_parent: any, { args }: any) {
 }
 
 export async function deletePublication(_parent: any, { args }: any) {
-  return await PublicationModel.deleteOne({ _id: args._id })
+  return await PublicationModel.deleteOne({ _id: Types.ObjectId(args._id) })
     .then(() => {
       return true;
     })
@@ -94,8 +92,8 @@ export async function deletePublication(_parent: any, { args }: any) {
 }
 
 export async function updatePublication(_parent: any, { args }: any) {
-  return await PublicationModel.findByIdAndUpdate(
-    { _id: args._id },
+  return await PublicationModel.updateOne(
+    { _id: Types.ObjectId(args._id) },
     args,
     () => {}
   )
@@ -108,7 +106,9 @@ export async function updatePublication(_parent: any, { args }: any) {
 }
 
 export async function getPublication(_parent: any, { args }: any) {
-  const publication = (await PublicationModel.findById(args._id))?.toObject();
+  const publication = (
+    await PublicationModel.findOne({ _id: Types.ObjectId(args._id) })
+  )?.toObject();
 
   //& Parse: "publication.categories"
   let collections = [];

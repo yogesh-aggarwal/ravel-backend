@@ -1,12 +1,10 @@
-import mongoose from "mongoose";
-
-const Schema = mongoose.Schema;
+import { Schema, Types, model } from "mongoose";
 
 //& Schema
 const Merchandise = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId,
+    default: Types.ObjectId,
   },
   name: {
     type: String,
@@ -22,7 +20,7 @@ const Merchandise = new Schema({
 });
 
 //& Model
-export const MerchandiseModel = mongoose.model(
+export const MerchandiseModel = model(
   "Merchandise",
   Merchandise,
   "merchandises"
@@ -40,7 +38,7 @@ export async function createMerchandise(_parent: any, { args }: any) {
 }
 
 export async function deleteMerchandise(_parent: any, { args }: any) {
-  return await MerchandiseModel.deleteOne({ _id: args._id })
+  return await MerchandiseModel.deleteOne({ _id: Types.ObjectId(args._id) })
     .then(() => {
       return true;
     })
@@ -50,8 +48,8 @@ export async function deleteMerchandise(_parent: any, { args }: any) {
 }
 
 export async function updateMerchandise(_parent: any, { args }: any) {
-  return await MerchandiseModel.findByIdAndUpdate(
-    { _id: args._id },
+  return await MerchandiseModel.updateOne(
+    { _id: Types.ObjectId(args._id) },
     args,
     () => {}
   )
@@ -64,5 +62,7 @@ export async function updateMerchandise(_parent: any, { args }: any) {
 }
 
 export async function getMerchandise(_parent: any, { args }: any) {
-  return (await MerchandiseModel.findById(args._id))?.toObject();
+  return (
+    await MerchandiseModel.findOne({ _id: Types.ObjectId(args._id) })
+  )?.toObject();
 }

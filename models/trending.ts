@@ -1,12 +1,10 @@
-import mongoose from "mongoose";
-
-const Schema = mongoose.Schema;
+import { Schema, Types, model } from "mongoose";
 
 //& Schema
 const Trending = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId,
+    default: Types.ObjectId,
   },
   tags: {
     type: [String],
@@ -30,7 +28,7 @@ const Trending = new Schema({
 });
 
 //& Model
-export const TrendingModel = mongoose.model("Trending", Trending, "trending");
+export const TrendingModel = model("Trending", Trending, "trending");
 
 //& Methods
 export async function createTrending(_parent: any, { args }: any) {
@@ -44,7 +42,7 @@ export async function createTrending(_parent: any, { args }: any) {
 }
 
 export async function deleteTrending(_parent: any, { args }: any) {
-  return await TrendingModel.deleteOne({ _id: args._id })
+  return await TrendingModel.deleteOne({ _id: Types.ObjectId(args._id) })
     .then(() => {
       return true;
     })
@@ -54,8 +52,8 @@ export async function deleteTrending(_parent: any, { args }: any) {
 }
 
 export async function updateTrending(_parent: any, { args }: any) {
-  return await TrendingModel.findByIdAndUpdate(
-    { _id: args._id },
+  return await TrendingModel.updateOne(
+    { _id: Types.ObjectId(args._id) },
     args,
     () => {}
   )

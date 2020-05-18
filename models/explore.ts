@@ -1,12 +1,10 @@
-import mongoose from "mongoose";
-
-const Schema = mongoose.Schema;
+import { Schema, Types, model } from "mongoose";
 
 //& Schema
 const Explore = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId,
+    default: Types.ObjectId,
   },
   tags: {
     type: [String],
@@ -28,7 +26,7 @@ const Explore = new Schema({
 });
 
 //& Model
-export const ExploreModel = mongoose.model("Explore", Explore, "explore");
+export const ExploreModel = model("Explore", Explore, "explore");
 
 //& Methods
 export async function createExplore(_parent: any, { args }: any) {
@@ -42,7 +40,7 @@ export async function createExplore(_parent: any, { args }: any) {
 }
 
 export async function deleteExplore(_parent: any, { args }: any) {
-  return await ExploreModel.deleteOne({ _id: args._id })
+  return await ExploreModel.deleteOne({ _id: Types.ObjectId(args._id) })
     .then(() => {
       return true;
     })
@@ -52,7 +50,11 @@ export async function deleteExplore(_parent: any, { args }: any) {
 }
 
 export async function updateExplore(_parent: any, { args }: any) {
-  return await ExploreModel.updateOne({ _id: args._id }, args, () => {})
+  return await ExploreModel.updateOne(
+    { _id: Types.ObjectId(args._id) },
+    args,
+    () => {}
+  )
     .then(() => {
       return true;
     })

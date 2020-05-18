@@ -1,13 +1,11 @@
-import mongoose from "mongoose";
-import { getPost } from './posts';
-
-const Schema = mongoose.Schema;
+import { Schema, Types, model } from "mongoose";
+import { getPost } from "./posts";
 
 //& Schema
 const Collection = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId,
+    default: Types.ObjectId,
   },
   title: {
     type: String,
@@ -42,11 +40,7 @@ const Collection = new Schema({
 });
 
 //& Model
-export const CollectionModel = mongoose.model(
-  "Collection",
-  Collection,
-  "collections"
-);
+export const CollectionModel = model("Collection", Collection, "collections");
 
 //& Methods
 export async function createCollection(_parent: any, { args }: any) {
@@ -60,7 +54,10 @@ export async function createCollection(_parent: any, { args }: any) {
 }
 
 export async function deleteCollection(_parent: any, { args }: any) {
-  return await CollectionModel.deleteOne({ _id: args._id }, args)
+  return await CollectionModel.deleteOne(
+    { _id: Types.ObjectId(args._id) },
+    args
+  )
     .then(() => {
       return true;
     })
@@ -70,7 +67,11 @@ export async function deleteCollection(_parent: any, { args }: any) {
 }
 
 export async function updateCollection(_parent: any, { args }: any) {
-  return await CollectionModel.updateOne({ _id: args._id }, args, () => {})
+  return await CollectionModel.updateOne(
+    { _id: Types.ObjectId(args._id) },
+    args,
+    () => {}
+  )
     .then(() => {
       return true;
     })
@@ -81,7 +82,7 @@ export async function updateCollection(_parent: any, { args }: any) {
 
 export async function getCollection(_parent: any, { args }: any) {
   const collection = (
-    await CollectionModel.findById({ _id: args._id })
+    await CollectionModel.findOne({ _id: Types.ObjectId(args._id) })
   )?.toObject();
   const collectionPosts = collection.posts;
 

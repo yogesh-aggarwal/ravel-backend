@@ -1,17 +1,15 @@
-import mongoose from "mongoose";
+import { Schema, Types, model } from "mongoose";
 import { CollectionModel, getCollection } from "./collections";
 import { PublicationModel } from "./publications";
 import { StoryModel } from "./story";
 import { getCommunityPost } from "./community-post";
 import { PostModel, getPost } from "./posts";
 
-const Schema = mongoose.Schema;
-
 //& Schema
 const User = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId,
+    default: Types.ObjectId,
   },
   history: { type: [String], required: true },
   saved: { type: [String], required: true },
@@ -141,7 +139,7 @@ const User = new Schema({
 });
 
 //& Model
-export const UserModel = mongoose.model("User", User, "users");
+export const UserModel = model("User", User, "users");
 
 //& Methods
 export async function createUser(_parent: any, { args }: any) {
@@ -155,7 +153,7 @@ export async function createUser(_parent: any, { args }: any) {
 }
 
 export async function deleteUser(_parent: any, { args }: any) {
-  return await UserModel.deleteOne({ _id: args._id })
+  return await UserModel.deleteOne({ _id: Types.ObjectId(args._id) })
     .then(() => {
       return true;
     })
@@ -165,7 +163,7 @@ export async function deleteUser(_parent: any, { args }: any) {
 }
 
 export async function updateUser(_parent: any, { args }: any) {
-  return await UserModel.findOneAndUpdate({ _id: args._id }, args)
+  return await UserModel.updateOne({ _id: Types.ObjectId(args._id) }, args)
     .then(() => {
       return true;
     })
@@ -179,20 +177,24 @@ export async function getUser(
   { args }: any,
   { collection = true, community = true }
 ) {
-  const user = (await UserModel.findById({ _id: args._id }))?.toObject();
+  const user = (
+    await UserModel.findOne({ _id: Types.ObjectId(args._id) })
+  )?.toObject();
   const userPosts = user.data.posts;
 
   //& Parse: "posts.posts"
   let posts = [];
   for (let post of userPosts.posts) {
-    posts.push(await PostModel.findById(post));
+    posts.push(await PostModel.findOne({ _id: Types.ObjectId(post) }));
   }
   user.data.posts.posts = posts;
 
   //& Parse: "posts.featuredPosts"
   let featuredPosts = [];
   for (let featuredPost of userPosts.featuredPosts) {
-    featuredPosts.push(await PostModel.findById(featuredPost));
+    featuredPosts.push(
+      await PostModel.findOne({ _id: Types.ObjectId(featuredPost) })
+    );
   }
   user.data.posts.featuredPosts = featuredPosts;
 
@@ -201,7 +203,9 @@ export async function getUser(
   for (let category of userPosts.categories) {
     let categoryPosts = [];
     for (let post of category.posts) {
-      categoryPosts.push(await PostModel.findById(post));
+      categoryPosts.push(
+        await PostModel.findOne({ _id: Types.ObjectId(post) })
+      );
     }
     categories.push({ name: category.name, posts: categoryPosts });
   }
@@ -234,34 +238,40 @@ export async function getUser(
   //& Parse: "memberOf"
   let memberOf = [];
   for (let member of user.data.memberOf) {
-    memberOf.push(await PublicationModel.findById(member));
+    memberOf.push(
+      await PublicationModel.findOne({ _id: Types.ObjectId(member) })
+    );
   }
   user.data.memberOf = memberOf;
 
   //& Parse: "story"
   let stories = [];
   for (let story of user.data.stories) {
-    stories.push(await StoryModel.findById(story));
+    stories.push(await StoryModel.findOne({ _id: Types.ObjectId(story) }));
   }
   user.data.stories = stories;
 
   //& Parse: "followers"
   let followers = [];
   for (let follower of user.data.followers) {
-    followers.push(await UserModel.findById(follower));
+    followers.push(await UserModel.findOne({ _id: Types.ObjectId(follower) }));
   }
   user.data.followers = followers;
   //& Parse: "followings"
   let followings = [];
   for (let following of user.data.following) {
-    followings.push(await UserModel.findById(following));
+    followings.push(
+      await UserModel.findOne({ _id: Types.ObjectId(following) })
+    );
   }
   user.data.following = followings;
 
   //& Parse: "merchandise"
   let merchandises = [];
   for (let merchandise of user.data.merchandise) {
-    merchandises.push(await UserModel.findById(merchandise));
+    merchandises.push(
+      await UserModel.findOne({ _id: Types.ObjectId(merchandise) })
+    );
   }
   user.data.merchandise = merchandises;
   return user;

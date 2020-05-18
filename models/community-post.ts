@@ -1,5 +1,5 @@
 import { Schema, Types, model } from "mongoose";
-import { getUser } from './users';
+import { getUser } from "./users";
 
 const CommunityPostSchema = new Schema({
   _id: {
@@ -26,7 +26,11 @@ export async function createCommunityPost(_parent: any, { args }: any) {
 }
 
 export async function updateCommunityPost(_parent: any, { args }: any) {
-  return await CommunityPostModel.updateOne({ _id: args._id }, args, () => {})
+  return await CommunityPostModel.updateOne(
+    { _id: Types.ObjectId(args._id) },
+    args,
+    () => {}
+  )
     .then(() => {
       return true;
     })
@@ -36,7 +40,10 @@ export async function updateCommunityPost(_parent: any, { args }: any) {
 }
 
 export async function deleteCommunityPost(_parent: any, { args }: any) {
-  return await CommunityPostModel.deleteOne({ _id: args._id }, () => {})
+  return await CommunityPostModel.deleteOne(
+    { _id: Types.ObjectId(args._id) },
+    () => {}
+  )
     .then(() => {
       return true;
     })
@@ -51,7 +58,7 @@ export async function getCommunityPost(
   { user = true }
 ) {
   const communityPost = (
-    await CommunityPostModel.findById(args._id)
+    await CommunityPostModel.findOne({ _id: Types.ObjectId(args._id) })
   )?.toObject();
   if (user)
     communityPost.owner = getUser(
