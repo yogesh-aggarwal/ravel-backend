@@ -2,10 +2,7 @@ import { Schema, Types, model } from "mongoose";
 
 //& Schema
 const Story = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-    default: Types.ObjectId,
-  },
+  _id: { type: Schema.Types.ObjectId, default: Types.ObjectId },
   content: { type: String, required: true },
   stats: {
     views: { type: Number, required: true, default: 0 },

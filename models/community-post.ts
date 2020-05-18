@@ -2,11 +2,7 @@ import { Schema, Types, model } from "mongoose";
 import { getUser } from "./users";
 
 const CommunityPostSchema = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    default: Types.ObjectId,
-  },
+  _id: { type: Schema.Types.ObjectId, required: true, default: Types.ObjectId },
 });
 
 export const CommunityPostModel = model(

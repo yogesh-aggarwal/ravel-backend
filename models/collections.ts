@@ -3,40 +3,14 @@ import { getPost } from "./posts";
 
 //& Schema
 const Collection = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-    default: Types.ObjectId,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  thumbnail: {
-    type: String,
-    required: true,
-  },
-  tags: {
-    type: [String],
-    required: true,
-  },
-  posts: {
-    type: [String],
-    required: true,
-  },
-  dateCreated: {
-    type: Date,
-    required: true,
-    default: Date.now,
-  },
-  dateUpdated: {
-    type: Date,
-    required: true,
-    default: Date.now,
-  },
+  _id: { type: Schema.Types.ObjectId, default: Types.ObjectId },
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  thumbnail: { type: String, required: true },
+  tags: { type: [String], required: true },
+  posts: { type: [String], required: true },
+  dateCreated: { type: Date, required: true, default: Date.now },
+  dateUpdated: { type: Date, required: true, default: Date.now },
 });
 
 //& Model

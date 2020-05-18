@@ -2,26 +2,11 @@ import { Schema, Types, model } from "mongoose";
 
 //& Schema
 const Explore = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-    default: Types.ObjectId,
-  },
-  tags: {
-    type: [String],
-    required: true,
-  },
-  publications: {
-    type: [String],
-    required: true,
-  },
-  creators: {
-    type: [String],
-    required: true,
-  },
-  posts: {
-    type: [String],
-    required: true,
-  },
+  _id: { type: Schema.Types.ObjectId, default: Types.ObjectId },
+  tags: { type: [String], required: true },
+  publications: { type: [String], required: true },
+  creators: { type: [String], required: true },
+  posts: { type: [String], required: true },
   date: { type: Date, required: true, default: Date.now },
 });
 

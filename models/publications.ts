@@ -4,63 +4,19 @@ import { getUser } from "./users";
 
 //& Schema
 const Publication = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-    default: Types.ObjectId,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  cover: {
-    type: String,
-    required: true,
-  },
-  profileImg: {
-    type: String,
-    required: true,
-  },
-  featuredImg: {
-    type: String,
-    required: true,
-  },
-  publications: {
-    type: [String],
-    required: true,
-    default: [],
-  },
-  collections: {
-    type: [String],
-    required: true,
-    default: [],
-  },
-  papers: {
-    type: [String],
-    required: true,
-    default: [],
-  },
-  owners: {
-    type: [String],
-    required: true,
-  },
-  followers: {
-    type: [String],
-    required: true,
-  },
-  members: {
-    type: [String],
-    required: true,
-  },
-  dateCreated: {
-    type: Date,
-    required: true,
-    default: Date.now,
-  },
-  dateUpdated: {
-    type: Date,
-    required: true,
-    default: Date.now,
-  },
+  _id: { type: Schema.Types.ObjectId, default: Types.ObjectId },
+  name: { type: String, required: true },
+  cover: { type: String, required: true },
+  profileImg: { type: String, required: true },
+  featuredImg: { type: String, required: true },
+  publications: { type: [String], required: true, default: [] },
+  collections: { type: [String], required: true, default: [] },
+  papers: { type: [String], required: true, default: [] },
+  owners: { type: [String], required: true },
+  followers: { type: [String], required: true },
+  members: { type: [String], required: true },
+  dateCreated: { type: Date, required: true, default: Date.now },
+  dateUpdated: { type: Date, required: true, default: Date.now },
 });
 
 //& Model

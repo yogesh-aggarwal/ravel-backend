@@ -4,10 +4,7 @@ import { PublicationModel } from "./publications";
 
 //& Schema
 const Post = new Schema({
-  _id: {
-    typs: Schema.Types.ObjectId,
-    default: Types.ObjectId,
-  },
+  _id: { typs: Schema.Types.ObjectId, default: Types.ObjectId },
   title: { type: String, required: true, trim: true, maxlength: 55 },
   description: { type: String, required: true, trim: true, maxlength: 300 },
   content: { type: Schema.Types.Mixed, required: true },
@@ -15,10 +12,7 @@ const Post = new Schema({
   readTime: { type: String, required: false },
   comments: { type: [String], required: true },
   credit: {
-    author: {
-      type: String,
-      required: true,
-    },
+    author: { type: String, required: true },
     publication: {
       type: String,
       required: true,
@@ -80,7 +74,6 @@ export async function getPost(
   { args }: any,
   collectionFromUserModel: boolean = true
 ) {
-  // console.log(args);
   let post = (
     await PostModel.findOne({ _id: Types.ObjectId(args._id) })
   )?.toObject();

@@ -2,14 +2,8 @@ import { Schema, Types, model } from "mongoose";
 
 //& Schema
 const Trending = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-    default: Types.ObjectId,
-  },
-  tags: {
-    type: [String],
-    required: true,
-  },
+  _id: { type: Schema.Types.ObjectId, default: Types.ObjectId },
+  tags: { type: [String], required: true },
   categories: {
     type: [
       {
@@ -20,10 +14,7 @@ const Trending = new Schema({
     required: true,
     default: [],
   },
-  creators: {
-    type: [String],
-    required: true,
-  },
+  creators: { type: [String], required: true },
   date: { type: Date, required: true, default: Date.now },
 });
 

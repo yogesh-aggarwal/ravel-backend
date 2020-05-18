@@ -7,29 +7,14 @@ import { PostModel, getPost } from "./posts";
 
 //& Schema
 const User = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-    default: Types.ObjectId,
-  },
+  _id: { type: Schema.Types.ObjectId, default: Types.ObjectId },
   history: { type: [String], required: true },
   saved: { type: [String], required: true },
   data: {
-    uname: {
-      type: String,
-      required: true,
-    },
-    pword: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    gender: {
-      type: String,
-      required: true,
-    },
+    uname: { type: String, required: true },
+    pword: { type: String, required: true },
+    email: { type: String, required: true },
+    gender: { type: String, required: true },
     coverImg: {
       type: String,
       required: true,
@@ -40,100 +25,42 @@ const User = new Schema({
       required: true,
       default: "https://bit.ly/2yXnT74", // TODO: Change it on the basis of gender
     },
-    name: {
-      type: String,
-      required: true,
-    },
-    bio: {
-      type: String,
-      required: false,
-      default: "",
-    },
-    isSuspended: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    socialLinks: {
-      type: [String],
-      required: true,
-      default: [],
-    },
-    memberOf: {
-      type: [String],
-      required: true,
-      default: [],
-    },
+    name: { type: String, required: true },
+    bio: { type: String, required: false, default: "" },
+    isSuspended: { type: Boolean, required: true, default: false },
+    socialLinks: { type: [String], required: true, default: [] },
+    memberOf: { type: [String], required: true, default: [] },
     posts: {
       categories: [
         {
-          name: {
-            type: String,
-            required: true,
-          },
-          posts: {
-            type: [String],
-            required: true,
-          },
+          name: { type: String, required: true },
+          posts: { type: [String], required: true },
         },
       ],
-      posts: {
-        type: [String],
-        required: true,
-        default: [],
-      },
-      featuredPosts: {
-        type: [String],
-        required: true,
-        default: [],
-      },
+      posts: { type: [String], required: true, default: [] },
+      featuredPosts: { type: [String], required: true, default: [] },
     },
     collections: {
       type: {
-        title: {
-          type: String,
-          required: true,
-        },
-        description: {
-          type: String,
-          required: true,
-        },
+        title: { type: String, required: true },
+        description: { type: String, required: true },
         thumbnail: { type: String, required: true },
         tags: { type: [String], required: true, default: [] },
         dateCreated: { type: Date, required: true, default: Date.now },
         dateUpdated: { type: Date, required: true, default: Date.now },
-        posts: {
-          type: [String],
-          required: true,
-        },
+        posts: { type: [String], required: true },
       },
       required: true,
       default: [],
     },
-    stories: {
-      type: [String],
-      required: true,
-      default: [],
-    },
-    followers: {
-      type: [String],
-      required: true,
-      default: [],
-    },
-    following: {
-      type: [String],
-      required: true,
-      default: [],
-    },
+    stories: { type: [String], required: true, default: [] },
+    followers: { type: [String], required: true, default: [] },
+    following: { type: [String], required: true, default: [] },
     stats: {
       reach: { type: Number, required: true, default: 0 },
       appreciations: { type: Number, required: true, default: 0 },
     },
-    merchandise: {
-      type: [String],
-      required: true,
-      default: [],
-    },
+    merchandise: { type: [String], required: true, default: [] },
     joinDate: { type: Date, required: true, default: Date.now },
   },
 });

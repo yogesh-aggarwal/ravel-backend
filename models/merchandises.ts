@@ -2,19 +2,10 @@ import { Schema, Types, model } from "mongoose";
 
 //& Schema
 const Merchandise = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-    default: Types.ObjectId,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
+  _id: { type: Schema.Types.ObjectId, default: Types.ObjectId },
+  name: { type: String, required: true },
   pictures: { type: [String], required: true },
-  price: {
-    type: Number,
-    required: true,
-  },
+  price: { type: Number, required: true },
   dateAdded: { type: Date, required: true, default: Date.now },
   dateUpdated: { type: Date, required: true, default: Date.now },
 });
