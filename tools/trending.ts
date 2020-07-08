@@ -9,20 +9,6 @@ export async function getTrending(
   context: any,
   info: any
 ) {
-  const fieldInfo = parseResolveInfo(info);
-  if (fieldInfo == null) {
-    return null;
-  }
-
-  const fields = fieldInfo.fieldsByTypeName["Trending"];
-
-  console.log(
-    "===================================================================="
-  );
-  console.log(fields);
-  console.log(
-    "===================================================================="
-  );
   let trending = (
     await TrendingModel.find().limit(1).sort({ $natural: -1 })
   )[0].toObject();
