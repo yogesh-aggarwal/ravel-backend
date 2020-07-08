@@ -1,8 +1,28 @@
 import { TrendingModel } from "../models/trending";
 import { getPost } from "../models/posts";
 import { getUser } from "../models/users";
+import { parseResolveInfo, FieldsByTypeName } from "graphql-parse-resolve-info";
 
-export async function getTrending() {
+export async function getTrending(
+  _parent: any,
+  args: any,
+  context: any,
+  info: any
+) {
+  const fieldInfo = parseResolveInfo(info);
+  if (fieldInfo == null) {
+    return null;
+  }
+
+  const fields = fieldInfo.fieldsByTypeName["Trending"];
+
+  console.log(
+    "===================================================================="
+  );
+  console.log(fields);
+  console.log(
+    "===================================================================="
+  );
   let trending = (
     await TrendingModel.find().limit(1).sort({ $natural: -1 })
   )[0].toObject();

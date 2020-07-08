@@ -70,11 +70,12 @@ export const UserModel = model("User", User, "users");
 
 //& Methods
 export async function createUser(_parent: any, { args }: any) {
-  return await UserModel.create(args)
+  return await UserModel.create({ data: args })
     .then(() => {
       return true;
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
       return false;
     });
 }
