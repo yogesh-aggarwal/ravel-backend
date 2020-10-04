@@ -77,6 +77,7 @@ export async function getPost(
   let post = (
     await PostModel.findOne({ _id: Types.ObjectId(args._id) })
   )?.toObject();
+  if (!post) return null;
 
   post.credit.publication = await PublicationModel.findOne({
     _id: Types.ObjectId(post.credit.publication),

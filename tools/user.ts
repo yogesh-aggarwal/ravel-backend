@@ -1,8 +1,8 @@
 import { getPost } from "../models/posts";
 import { getUser } from "../models/users";
 
-export async function getUserRecommendations({ args }: any) {
-  const newPosts = ["5ec114893ca0c626345dadc2"]; // TODO: Get them from database of args.quantity
+export async function getUserRecommendations(_parent: any, { args }: any) {
+  const newPosts = ["5ec12ceb03f6902f58a07fb1"]; // TODO: Get them from database of args.quantity
 
   let result = [];
   for (let newPost of newPosts) {

@@ -1,6 +1,6 @@
 import { Schema, Types, model } from "mongoose";
 import { CollectionModel, getCollection } from "./collections";
-import { PublicationModel } from "./publications";
+import { PublicationModel, getPublication } from "./publications";
 import { StoryModel } from "./story";
 import { getCommunityPost } from "./community-post";
 import { PostModel, getPost } from "./posts";
@@ -166,7 +166,7 @@ export async function getUser(
   let memberOf = [];
   for (let member of user.data.memberOf) {
     memberOf.push(
-      await PublicationModel.findOne({ _id: Types.ObjectId(member) })
+      await getPublication(null, {args: { _id: Types.ObjectId(member) }})
     );
   }
   user.data.memberOf = memberOf;
@@ -201,5 +201,7 @@ export async function getUser(
     );
   }
   user.data.merchandise = merchandises;
+
+  console.log(user);
   return user;
 }

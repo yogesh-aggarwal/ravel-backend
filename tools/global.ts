@@ -1,6 +1,6 @@
 import { getPost } from "../models/posts";
 
-export async function getNewRavels({ args }: any) {
+export async function getNewRavels(_parent: any, { args }: any) {
   const newPosts = [
     "5e7f3017e20f723590c45638",
     "5e7f3018e20f723590c45639",
